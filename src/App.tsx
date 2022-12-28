@@ -1,11 +1,10 @@
-import Example from "components/Example";
 import { FC } from "react";
 import "index.css";
-import classNames from "classnames";
+import Authentication from "components/Authentication";
 
 const App: FC = () => (
-  <main className="h-[100vh] bg-dark">
-    <Example />
+  <main className="grid h-[100vh] place-items-center bg-dark">
+    <Authentication />
   </main>
 );
 

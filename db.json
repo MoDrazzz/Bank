@@ -1,10 +1,10 @@
 {
   "users": [
     {
-      "id": 1612345678903,
-      "owner": "John Doe",
+      "id": 12345,
       "login": 12345,
       "password": "123",
+      "owner": "John Doe",
       "balance": 1250.0,
       "accountNumber": 12345678901234567890123456,
       "operations": [
@@ -13,29 +13,29 @@
           "type": "incoming",
           "amount": 1000.0,
           "date": 1672262443965,
-          "receiver": 1732894342943
+          "receiver": 54321
         },
         {
           "id": 1674093241336,
           "type": "outgoing",
           "amount": 250.0,
           "date": 1674093241336,
-          "receiver": 1732894342943
+          "receiver": 54321
         },
         {
           "id": 1674328945442,
           "type": "outgoing",
           "amount": 20.0,
           "date": 1674328945442,
-          "receiver": 1732894342943
+          "receiver": 54321
         }
       ]
     },
     {
-      "id": 1732894342943,
-      "owner": "Bob Odenkirk",
+      "id": 54321,
       "login": 54321,
       "password": "123",
+      "owner": "Bob Odenkirk",
       "balance": 10000.0,
       "accountNumber": 12345678098765432109876543,
       "operations": [
@@ -44,21 +44,21 @@
           "type": "incoming",
           "amount": 1000.0,
           "date": 1672262443965,
-          "receiver": 1732894342943
+          "receiver": 12345
         },
         {
           "id": 2,
           "type": "outgoing",
           "amount": 250.0,
           "date": 1674093241336,
-          "receiver": 1732894342943
+          "receiver": 12345
         },
         {
           "id": 2,
           "type": "outgoing",
           "amount": 20.0,
           "date": 1674328945442,
-          "receiver": 1732894342943
+          "receiver": 12345
         }
       ]
     }
