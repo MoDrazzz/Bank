@@ -1,3 +1,4 @@
+import { authActions, useAuthContext } from "contexts/AuthContext";
 import { FC, useState } from "react";
 
 const Authentication: FC = () => {
@@ -7,6 +8,8 @@ const Authentication: FC = () => {
   });
   const [error, setError] = useState("");
 
+  const { dispatch } = useAuthContext();
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setFormValues((prev) => ({ ...prev, [name]: value }));
@@ -14,7 +17,6 @@ const Authentication: FC = () => {
 
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-
     fetch(`http://localhost:3000/users?login=${formValues.login}`)
       .then((res) => res.json())
       .then(([user]) => {
@@ -25,7 +27,9 @@ const Authentication: FC = () => {
           return setError("Password is not valid.");
         }
 
-        // User authenticated.
+        setError("");
+
+        dispatch({ type: authActions.login, payload: user });
       })
       .catch((err) => console.log(err));
   };

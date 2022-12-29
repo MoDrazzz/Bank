@@ -4,9 +4,9 @@
       "id": 12345,
       "login": 12345,
       "password": "123",
-      "owner": "John Doe",
+      "fullName": "John Doe",
       "balance": 1250.0,
-      "accountNumber": 12345678901234567890123456,
+      "accountNumber": "12 3456 7890 1234 5678 9012 3456",
       "operations": [
         {
           "id": 1672262443965,
@@ -35,9 +35,9 @@
       "id": 54321,
       "login": 54321,
       "password": "123",
-      "owner": "Bob Odenkirk",
+      "fullName": "Bob Odenkirk",
       "balance": 10000.0,
-      "accountNumber": 12345678098765432109876543,
+      "accountNumber": "12 3456 7809 8765 4321 0987 6543",
       "operations": [
         {
           "id": 1,
