@@ -4,6 +4,7 @@ declare global {
     type: "incoming" | "outgoing";
     amount: number;
     date: number;
+    title: string;
     receiver: number;
   }
 

@@ -1,4 +1,4 @@
-import { authActions, useAuthContext } from "contexts/AuthContext";
+import { AuthActions, useAuthContext } from "contexts/AuthContext";
 import { FC, useState } from "react";
 
 const Authentication: FC = () => {
@@ -29,7 +29,7 @@ const Authentication: FC = () => {
 
         setError("");
 
-        dispatch({ type: authActions.login, payload: user });
+        dispatch({ type: AuthActions.login, payload: user });
       })
       .catch((err) => console.log(err));
   };
