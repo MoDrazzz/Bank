@@ -1,3 +1,8 @@
+import Button from "components/Button";
+import FormField from "components/FormField";
+import Heading from "components/Heading";
+import Input from "components/Input";
+import Label from "components/Label";
 import { AuthActions, useAuthContext } from "contexts/AuthContext";
 import { FC, useState } from "react";
 import { flushSync } from "react-dom";
@@ -44,30 +49,28 @@ const Authentication: FC = () => {
 
   return (
     <div className={"grid h-[100vh] place-items-center bg-dark"}>
-      <form className="flex flex-col gap-2 rounded border-2 p-5">
-        <label htmlFor="login">Login</label>
-        <input
-          className="text-dark"
+      <form className="relative flex w-[25vw] flex-col items-center gap-5 rounded border-2 p-12">
+        <FormField
+          name="login"
+          label="Login"
           onChange={handleInputChange}
           type="text"
-          name="login"
         />
-        <label htmlFor="password">Password</label>
-        <input
-          className="text-dark"
+        <FormField
+          name="password"
+          label="Password"
           onChange={handleInputChange}
           type="password"
-          name="password"
         />
-        <button
-          type="submit"
+        <Button
           onClick={handleLogin}
-          className="rounded border-2 py-2 text-white disabled:opacity-20"
           disabled={!formValues.login || !formValues.password}
         >
           Login
-        </button>
-        {error}
+        </Button>
+        <p className="absolute bottom-0 h-12 text-center leading-[3rem] text-red">
+          {error}
+        </p>
       </form>
     </div>
   );
