@@ -4,18 +4,16 @@ import { AuthActions, useAuthContext } from "contexts/AuthContext";
 import { FC, useState } from "react";
 import { flushSync } from "react-dom";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import useBank from "hooks/useBank";
 
 const Authentication: FC = () => {
+  const { error, login } = useBank();
+
   const [formValues, setFormValues] = useState({
     login: "",
     password: "",
   });
-  const [error, setError] = useState("");
-
-  const { dispatch } = useAuthContext();
-
-  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -24,23 +22,11 @@ const Authentication: FC = () => {
 
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
+
     axios
       .get(`http://localhost:3000/users?login=${formValues.login}`)
       .then(({ data: [user] }) => {
-        if (!user) {
-          return setError("No user of given login found.");
-        }
-        if (user.password != formValues.password) {
-          return setError("Password is not valid.");
-        }
-
-        setError("");
-
-        flushSync(() => {
-          dispatch({ type: AuthActions.login, payload: user });
-        });
-
-        navigate("/dashboard");
+        login(user, formValues);
       })
       .catch((err) => console.log(err));
   };
