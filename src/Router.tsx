@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Root from "screens/Root";
 import Dashboard from "screens/Dashboard";
+import Transfer from "screens/Transfer";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: "transfer",
-        element: <Dashboard />,
+        element: <Transfer />,
       },
     ],
   },

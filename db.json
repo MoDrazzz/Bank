@@ -5,13 +5,13 @@
       "login": 12345,
       "password": "123",
       "fullName": "John Doe",
-      "balance": 1250.0,
+      "balance": 874.5,
       "accountNumber": "12 3456 7890 1234 5678 9012 3456",
       "operations": [
         {
           "id": 1672262443965,
           "type": "incoming",
-          "amount": 1000.0,
+          "amount": 1000,
           "date": 1672262443965,
           "title": "Paycheck",
           "receiver": 54321
@@ -19,7 +19,7 @@
         {
           "id": 1674093241336,
           "type": "outgoing",
-          "amount": 250.0,
+          "amount": 250,
           "date": 1674093241336,
           "title": "Steam Purchase",
           "receiver": 54321
@@ -27,7 +27,7 @@
         {
           "id": 1674328945442,
           "type": "outgoing",
-          "amount": 20.0,
+          "amount": 20,
           "date": 1674328945442,
           "title": "Pizza",
           "receiver": 54321
@@ -39,13 +39,13 @@
       "login": 54321,
       "password": "123",
       "fullName": "Bob Odenkirk",
-      "balance": 10000.0,
+      "balance": 10601,
       "accountNumber": "12 3456 7809 8765 4321 0987 6543",
       "operations": [
         {
           "id": 1672262443965,
           "type": "outgoing",
-          "amount": 1000.0,
+          "amount": 1000,
           "date": 1672262443965,
           "title": "Paycheck",
           "receiver": 12345
@@ -53,7 +53,7 @@
         {
           "id": 1674093241336,
           "type": "incoming",
-          "amount": 250.0,
+          "amount": 250,
           "date": 1674093241336,
           "title": "Steam Purchase",
           "receiver": 12345
@@ -61,7 +61,7 @@
         {
           "id": 1674328945442,
           "type": "incoming",
-          "amount": 20.0,
+          "amount": 20,
           "date": 1674328945442,
           "title": "Pizza",
           "receiver": 12345

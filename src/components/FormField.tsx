@@ -4,10 +4,10 @@ import Label from "./Label";
 
 interface Props {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-  type: "text" | "password";
+  type: "text" | "password" | "number";
   name: string;
   label: string;
-  value: string;
+  value: string | number;
 }
 
 const FormField: FC<Props> = ({ name, label, onChange, type, value }) => (
