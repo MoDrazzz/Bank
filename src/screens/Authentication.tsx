@@ -1,12 +1,10 @@
 import Button from "components/Button";
 import FormField from "components/FormField";
-import Heading from "components/Heading";
-import Input from "components/Input";
-import Label from "components/Label";
 import { AuthActions, useAuthContext } from "contexts/AuthContext";
 import { FC, useState } from "react";
 import { flushSync } from "react-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Authentication: FC = () => {
   const [formValues, setFormValues] = useState({
@@ -26,9 +24,9 @@ const Authentication: FC = () => {
 
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-    fetch(`http://localhost:3000/users?login=${formValues.login}`)
-      .then((res) => res.json())
-      .then(([user]) => {
+    axios
+      .get(`http://localhost:3000/users?login=${formValues.login}`)
+      .then(({ data: [user] }) => {
         if (!user) {
           return setError("No user of given login found.");
         }
@@ -55,12 +53,14 @@ const Authentication: FC = () => {
           label="Login"
           onChange={handleInputChange}
           type="text"
+          value={formValues.login}
         />
         <FormField
           name="password"
           label="Password"
           onChange={handleInputChange}
           type="password"
+          value={formValues.password}
         />
         <Button
           onClick={handleLogin}

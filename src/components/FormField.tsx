@@ -7,12 +7,13 @@ interface Props {
   type: "text" | "password";
   name: string;
   label: string;
+  value: string;
 }
 
-const FormField: FC<Props> = ({ name, label, onChange, type }) => (
+const FormField: FC<Props> = ({ name, label, onChange, type, value }) => (
   <div className="grid w-full gap-2">
     <Label htmlFor={name}>{label}</Label>
-    <Input onChange={onChange} type={type} name={name} />
+    <Input value={value} onChange={onChange} type={type} name={name} />
   </div>
 );
 
