@@ -16,7 +16,13 @@ const useBank = () => {
   const { user, dispatch } = useAuthContext();
   const navigate = useNavigate();
 
-  const login = (user: User, credentials: Credentials) => {
+  const login = async (credentials: Credentials, isInitial?: boolean) => {
+    const userResponse = await axios
+      .get(`http://localhost:3000/users?login=${credentials.login}`)
+      .catch((err) => console.log(err));
+
+    const user = userResponse?.data[0];
+
     if (!user) {
       setError("No user of given login found.");
       return;
@@ -32,7 +38,9 @@ const useBank = () => {
       dispatch({ type: AuthActions.login, payload: user });
     });
 
-    navigate("/dashboard");
+    if (isInitial) {
+      navigate("/dashboard");
+    }
   };
 
   const logout = () => {
@@ -43,7 +51,17 @@ const useBank = () => {
     receiversAccountNumber: string,
     amount: number,
     title: string
-  ) => {
+  ): Promise<void | number> => {
+    if (!user) {
+      return navigate("/");
+    }
+
+    // first of all check if receiver's account number is not the user's one ( ͡° ͜ʖ ͡°)
+    if (receiversAccountNumber == user.accountNumber) {
+      setError("Provided account number is the same as yours. Nice try!");
+      return;
+    }
+
     // check if receiver exists
     const receiverResponse = await axios
       .get<[User]>(
@@ -59,10 +77,6 @@ const useBank = () => {
     const [receiver] = receiverResponse.data;
 
     // check amount <= balance
-    if (!user) {
-      return navigate("/");
-    }
-
     if (user.balance < amount) {
       setError("You do not have enough money to perform this operation.");
       return;
@@ -72,7 +86,7 @@ const useBank = () => {
     setError("");
 
     // create operation-like object for sender.
-    const senderOperation: Operation = {
+    const sendersOperation: Operation = {
       id: now,
       type: "outgoing",
       amount,
@@ -82,31 +96,37 @@ const useBank = () => {
     };
 
     // create operation-like object for receiver.
-    const receiverOperation: Operation = {
+    const receiversOperation: Operation = {
       id: now,
       type: "incoming",
       amount,
       date: now,
       title,
-      receiver: receiver.id,
+      sender: user.id,
     };
 
-    console.log(senderOperation, receiverOperation);
+    console.log(sendersOperation, receiversOperation);
 
     // change sender's balance
+    // add operation to sender's operation hisotry.
     const newSendersBalance: number = user.balance - amount;
     axios.patch(`http://localhost:3000/users/${user.id}`, {
       balance: newSendersBalance,
+      operations: [sendersOperation, ...user.operations],
     });
 
     // change receiver's balance
+    // add operation to receive's operation history.
     const newReceiversBalance: number = receiver.balance + amount;
     axios.patch(`http://localhost:3000/users/${receiver.id}`, {
       balance: newReceiversBalance,
+      operations: [receiversOperation, ...receiver.operations],
     });
 
-    // add operation to sender's operation hisotry.
-    // add operation to receive's operation history.
+    // update current user state in AuthContext.
+    login({ login: user.login, password: user.password });
+
+    return 200;
   };
 
   return {

@@ -13,6 +13,7 @@ const Input: FC<Props> = ({ onChange, name, type, value }) => (
     onChange={onChange}
     type={type}
     name={name}
+    value={value}
   />
 );
 

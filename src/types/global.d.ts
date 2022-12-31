@@ -5,12 +5,13 @@ declare global {
     amount: number;
     date: number;
     title: string;
-    receiver: number;
+    receiver?: number;
+    sender?: number;
   }
 
   interface User {
     id: number;
-    login: number;
+    login: string;
     password: string;
     fullName: string;
     balance: number;

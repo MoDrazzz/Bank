@@ -23,12 +23,7 @@ const Authentication: FC = () => {
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
-    axios
-      .get(`http://localhost:3000/users?login=${formValues.login}`)
-      .then(({ data: [user] }) => {
-        login(user, formValues);
-      })
-      .catch((err) => console.log(err));
+    login(formValues, true);
   };
 
   return (

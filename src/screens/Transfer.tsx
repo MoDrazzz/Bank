@@ -1,16 +1,19 @@
 import Button from "components/Button";
 import FormField from "components/FormField";
 import useBank from "hooks/useBank";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { flushSync } from "react-dom";
+
+const initialFormValues = {
+  receiver: "",
+  amount: 0,
+  title: "",
+};
 
 const Transfer: FC = () => {
   const { error, transfer } = useBank();
 
-  const [formValues, setFormValues] = useState({
-    receiver: "",
-    amount: 0,
-    title: "",
-  });
+  const [formValues, setFormValues] = useState(initialFormValues);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -23,12 +26,16 @@ const Transfer: FC = () => {
   };
 
   const handleSend = () => {
-    transfer(formValues.receiver, formValues.amount, formValues.title);
+    transfer(formValues.receiver, formValues.amount, formValues.title).then(
+      (res) => {
+        res === 200 ? setFormValues(initialFormValues) : null;
+      }
+    );
   };
 
   return (
-    <div>
-      <div className="mb-5 flex gap-5">
+    <div className="grid gap-5">
+      <div className="flex gap-5">
         <FormField
           onChange={handleInputChange}
           type="text"
@@ -51,7 +58,9 @@ const Transfer: FC = () => {
           value={formValues.title}
         />
       </div>
-      <Button onClick={handleSend}>Send</Button>
+      <div>
+        <Button onClick={handleSend}>Send</Button>
+      </div>
       {error}
     </div>
   );

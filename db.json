@@ -5,31 +5,87 @@
       "login": 12345,
       "password": "123",
       "fullName": "John Doe",
-      "balance": 874.5,
+      "balance": 9524,
       "accountNumber": "12 3456 7890 1234 5678 9012 3456",
       "operations": [
         {
-          "id": 1672262443965,
-          "type": "incoming",
-          "amount": 1000,
-          "date": 1672262443965,
-          "title": "Paycheck",
-          "receiver": 54321
-        },
-        {
-          "id": 1674093241336,
+          "id": 1672431041703,
           "type": "outgoing",
-          "amount": 250,
-          "date": 1674093241336,
-          "title": "Steam Purchase",
+          "amount": 2,
+          "date": 1672431041703,
+          "title": "fdfvsd",
           "receiver": 54321
         },
         {
-          "id": 1674328945442,
+          "id": 1672431027991,
+          "type": "outgoing",
+          "amount": 3,
+          "date": 1672431027991,
+          "title": "dsfs",
+          "receiver": 54321
+        },
+        {
+          "id": 1672430920988,
+          "type": "outgoing",
+          "amount": 234,
+          "date": 1672430920988,
+          "title": "sfs",
+          "receiver": 54321
+        },
+        {
+          "id": 1672430903071,
+          "type": "outgoing",
+          "amount": 43,
+          "date": 1672430903071,
+          "title": "s",
+          "receiver": 54321
+        },
+        {
+          "id": 1672430781702,
+          "type": "outgoing",
+          "amount": 53,
+          "date": 1672430781702,
+          "title": "fg",
+          "receiver": 54321
+        },
+        {
+          "id": 1672430737124,
+          "type": "outgoing",
+          "amount": 23,
+          "date": 1672430737124,
+          "title": "rte",
+          "receiver": 54321
+        },
+        {
+          "id": 1672430648298,
+          "type": "outgoing",
+          "amount": 25,
+          "date": 1672430648298,
+          "title": "efs",
+          "receiver": 54321
+        },
+        {
+          "id": 1672430510824,
           "type": "outgoing",
           "amount": 20,
-          "date": 1674328945442,
-          "title": "Pizza",
+          "date": 1672430510824,
+          "title": "sdf",
+          "receiver": 54321
+        },
+        {
+          "id": 1672430443807,
+          "type": "outgoing",
+          "amount": 23,
+          "date": 1672430443807,
+          "title": "es",
+          "receiver": 54321
+        },
+        {
+          "id": 1672430230296,
+          "type": "outgoing",
+          "amount": 23,
+          "date": 1672430230296,
+          "title": "Hello!",
           "receiver": 54321
         }
       ]
@@ -39,32 +95,88 @@
       "login": 54321,
       "password": "123",
       "fullName": "Bob Odenkirk",
-      "balance": 10601,
+      "balance": 10476,
       "accountNumber": "12 3456 7809 8765 4321 0987 6543",
       "operations": [
         {
-          "id": 1672262443965,
-          "type": "outgoing",
-          "amount": 1000,
-          "date": 1672262443965,
-          "title": "Paycheck",
-          "receiver": 12345
-        },
-        {
-          "id": 1674093241336,
+          "id": 1672431041703,
           "type": "incoming",
-          "amount": 250,
-          "date": 1674093241336,
-          "title": "Steam Purchase",
-          "receiver": 12345
+          "amount": 2,
+          "date": 1672431041703,
+          "title": "fdfvsd",
+          "sender": 12345
         },
         {
-          "id": 1674328945442,
+          "id": 1672431027991,
+          "type": "incoming",
+          "amount": 3,
+          "date": 1672431027991,
+          "title": "dsfs",
+          "sender": 12345
+        },
+        {
+          "id": 1672430920988,
+          "type": "incoming",
+          "amount": 234,
+          "date": 1672430920988,
+          "title": "sfs",
+          "sender": 12345
+        },
+        {
+          "id": 1672430903071,
+          "type": "incoming",
+          "amount": 43,
+          "date": 1672430903071,
+          "title": "s",
+          "sender": 12345
+        },
+        {
+          "id": 1672430781702,
+          "type": "incoming",
+          "amount": 53,
+          "date": 1672430781702,
+          "title": "fg",
+          "sender": 12345
+        },
+        {
+          "id": 1672430737124,
+          "type": "incoming",
+          "amount": 23,
+          "date": 1672430737124,
+          "title": "rte",
+          "sender": 12345
+        },
+        {
+          "id": 1672430648298,
+          "type": "incoming",
+          "amount": 25,
+          "date": 1672430648298,
+          "title": "efs",
+          "sender": 12345
+        },
+        {
+          "id": 1672430510824,
           "type": "incoming",
           "amount": 20,
-          "date": 1674328945442,
-          "title": "Pizza",
-          "receiver": 12345
+          "date": 1672430510824,
+          "title": "sdf",
+          "sender": 12345
+        },
+        {
+          "id": 1672430443807,
+          "type": "incoming",
+          "amount": 23,
+          "date": 1672430443807,
+          "title": "es",
+          "sender": 12345
+        },
+        {
+          "id": 1672430230296,
+          "type": "incoming",
+          "amount": 50,
+          "date": 1672430230296,
+          "title": "Hello!",
+          "sender": 12345
         }
       ]
     }
