@@ -7,6 +7,7 @@ declare global {
     title: string;
     receiver?: number;
     sender?: number;
+    balanceAfterOperation: number;
   }
 
   interface User {

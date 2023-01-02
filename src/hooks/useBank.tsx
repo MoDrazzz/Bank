@@ -85,42 +85,46 @@ const useBank = () => {
     // reset errors
     setError("");
 
+    // calculate new balances
+    const newSenderBalance: number = user.balance - amount;
+    const newReceiverBalance: number = receiver.balance + amount;
+
     // create operation-like object for sender.
-    const sendersOperation: Operation = {
+    const senderOperation: Operation = {
       id: now,
       type: "outgoing",
       amount,
       date: now,
       title,
       receiver: receiver.id,
+      balanceAfterOperation: newSenderBalance,
     };
 
     // create operation-like object for receiver.
-    const receiversOperation: Operation = {
+    const receiverOperation: Operation = {
       id: now,
       type: "incoming",
       amount,
       date: now,
       title,
       sender: user.id,
+      balanceAfterOperation: newReceiverBalance,
     };
 
-    console.log(sendersOperation, receiversOperation);
+    // console.log(senderOperation, receiverOperation);
 
     // change sender's balance
     // add operation to sender's operation hisotry.
-    const newSendersBalance: number = user.balance - amount;
     axios.patch(`http://localhost:3000/users/${user.id}`, {
-      balance: newSendersBalance,
-      operations: [sendersOperation, ...user.operations],
+      balance: newSenderBalance,
+      operations: [senderOperation, ...user.operations],
     });
 
     // change receiver's balance
     // add operation to receive's operation history.
-    const newReceiversBalance: number = receiver.balance + amount;
     axios.patch(`http://localhost:3000/users/${receiver.id}`, {
-      balance: newReceiversBalance,
-      operations: [receiversOperation, ...receiver.operations],
+      balance: newReceiverBalance,
+      operations: [receiverOperation, ...receiver.operations],
     });
 
     // update current user state in AuthContext.

@@ -4,7 +4,6 @@ import { AuthActions, useAuthContext } from "contexts/AuthContext";
 import { FC, useState } from "react";
 import { flushSync } from "react-dom";
 import { useNavigate } from "react-router-dom";
-import axios, { AxiosResponse } from "axios";
 import useBank from "hooks/useBank";
 
 const Authentication: FC = () => {
