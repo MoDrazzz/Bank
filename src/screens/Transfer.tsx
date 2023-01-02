@@ -1,12 +1,11 @@
 import Button from "components/Button";
 import FormField from "components/FormField";
 import useBank from "hooks/useBank";
-import { FC, useEffect, useState } from "react";
-import { flushSync } from "react-dom";
+import { FC, useState } from "react";
 
 const initialFormValues = {
   receiver: "",
-  amount: 0,
+  amount: 1,
   title: "",
 };
 
@@ -19,7 +18,8 @@ const Transfer: FC = () => {
     const { name, value } = e.target;
 
     if (name == "amount") {
-      setFormValues((prev) => ({ ...prev, [name]: parseFloat(value) }));
+      if (value)
+        setFormValues((prev) => ({ ...prev, [name]: parseFloat(value) }));
     } else {
       setFormValues((prev) => ({ ...prev, [name]: value }));
     }
@@ -49,6 +49,7 @@ const Transfer: FC = () => {
           label="Amount"
           name="amount"
           value={formValues.amount}
+          min={0.1}
         />
         <FormField
           onChange={handleInputChange}

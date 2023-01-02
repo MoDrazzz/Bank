@@ -21,12 +21,21 @@ const useBank = () => {
       .get(`http://localhost:3000/users?login=${credentials.login}`)
       .catch((err) => console.log(err));
 
-    const user = userResponse?.data[0];
+    console.log(userResponse);
+    // !userResponse.data -> no database connection
+    // !userResponse.data[0] -> no user found
 
-    if (!user) {
+    if (!userResponse?.data) {
+      setError("Can not connect to the database.");
+      return;
+    }
+    if (!userResponse.data[0]) {
       setError("No user of given login found.");
       return;
     }
+
+    const user = userResponse.data[0];
+
     if (user.password != credentials.password) {
       setError("Password is not valid.");
       return;
