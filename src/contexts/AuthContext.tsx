@@ -1,9 +1,6 @@
 import { createContext, FC, ReactNode, useContext, useReducer } from "react";
 
-export enum AuthActions {
-  login = "LOGIN",
-  logout = "LOGOUT",
-}
+type AuthActions = "LOGIN" | "LOGOUT";
 
 interface Props {
   children: ReactNode;
@@ -11,9 +8,7 @@ interface Props {
 
 type ReducerState = User | null;
 
-type ReducerAction =
-  | { type: AuthActions.login; payload: User }
-  | { type: AuthActions.logout };
+type ReducerAction = { type: AuthActions; payload: User | null };
 
 interface AuthContextValues {
   user: ReducerState;
@@ -27,10 +22,10 @@ const AuthenticationContext = createContext<AuthContextValues>({
 
 const authReducer = (state: ReducerState, action: ReducerAction) => {
   switch (action.type) {
-    case AuthActions.login: {
+    case "LOGIN": {
       return action.payload;
     }
-    case AuthActions.logout: {
+    case "LOGOUT": {
       return null;
     }
   }

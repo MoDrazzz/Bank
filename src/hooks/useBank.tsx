@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AuthActions, useAuthContext } from "contexts/AuthContext";
+import { useAuthContext } from "contexts/AuthContext";
 import { useState } from "react";
 import { flushSync } from "react-dom";
 import { useNavigate } from "react-router-dom";
@@ -44,7 +44,7 @@ const useBank = () => {
     setError("");
 
     flushSync(() => {
-      dispatch({ type: AuthActions.login, payload: user });
+      dispatch({ type: "LOGIN", payload: user });
     });
 
     if (isInitial) {
@@ -53,7 +53,7 @@ const useBank = () => {
   };
 
   const logout = () => {
-    dispatch({ type: AuthActions.logout });
+    dispatch({ type: "LOGOUT", payload: null });
   };
 
   const transfer = async (

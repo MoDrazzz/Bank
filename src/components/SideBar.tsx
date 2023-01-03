@@ -1,4 +1,3 @@
-import { AuthActions, useAuthContext } from "contexts/AuthContext";
 import useBank from "hooks/useBank";
 import { FC } from "react";
 import Button from "./Button";

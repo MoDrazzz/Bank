@@ -1,6 +1,5 @@
 import Button from "components/Button";
 import FormField from "components/FormField";
-import { AuthActions, useAuthContext } from "contexts/AuthContext";
 import { FC, useState } from "react";
 import { flushSync } from "react-dom";
 import { useNavigate } from "react-router-dom";
