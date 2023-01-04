@@ -123,14 +123,14 @@ const useBank = () => {
 
     // change sender's balance
     // add operation to sender's operation hisotry.
-    axios.patch(`http://localhost:3000/users/${user.id}`, {
+    await axios.patch(`http://localhost:3000/users/${user.id}`, {
       balance: newSenderBalance,
       operations: [senderOperation, ...user.operations],
     });
 
     // change receiver's balance
     // add operation to receive's operation history.
-    axios.patch(`http://localhost:3000/users/${receiver.id}`, {
+    await axios.patch(`http://localhost:3000/users/${receiver.id}`, {
       balance: newReceiverBalance,
       operations: [receiverOperation, ...receiver.operations],
     });
