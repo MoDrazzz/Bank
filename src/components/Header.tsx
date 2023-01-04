@@ -9,7 +9,7 @@ const Header: FC = () => {
     <header className="col-span-2 flex h-full items-center border-4 border-r-0 border-t-0 border-white px-24 ">
       <Title>
         Welcome back,
-        <span className="text-primary"> {user?.fullName}!</span>
+        <span className="text-primary"> {user?.fullName}</span>!
       </Title>
     </header>
   );

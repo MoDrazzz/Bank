@@ -21,7 +21,6 @@ const useBank = () => {
       .get(`http://localhost:3000/users?login=${credentials.login}`)
       .catch((err) => console.log(err));
 
-    console.log(userResponse);
     // !userResponse.data -> no database connection
     // !userResponse.data[0] -> no user found
 

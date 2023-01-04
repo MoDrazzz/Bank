@@ -26,11 +26,13 @@ const Transfer: FC = () => {
   };
 
   const handleSend = () => {
-    transfer(formValues.receiver, formValues.amount, formValues.title).then(
-      (res) => {
-        res === 200 ? setFormValues(initialFormValues) : null;
-      }
-    );
+    transfer(
+      formValues.receiver.trim(),
+      formValues.amount,
+      formValues.title.trim()
+    ).then((res) => {
+      res === 200 ? setFormValues(initialFormValues) : null;
+    });
   };
 
   return (
@@ -60,7 +62,15 @@ const Transfer: FC = () => {
         />
       </div>
       <div>
-        <Button onClick={handleSend}>Send</Button>
+        <Button
+          disabled={
+            formValues.title.trim().length == 0 ||
+            formValues.receiver.trim().length == 0
+          }
+          onClick={handleSend}
+        >
+          Send
+        </Button>
       </div>
       {error}
     </div>

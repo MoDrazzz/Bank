@@ -33,6 +33,7 @@ const authReducer = (state: ReducerState, action: ReducerAction) => {
 
 const AuthContext: FC<Props> = ({ children }) => {
   const [user, dispatch] = useReducer(authReducer, null);
+  console.log("User updated", user);
 
   return (
     <AuthenticationContext.Provider

@@ -2,13 +2,13 @@ import { FC } from "react";
 
 interface Props {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-  type: string;
+  type?: string;
   name: string;
   value: string | number;
   min?: number;
 }
 
-const Input: FC<Props> = ({ onChange, name, type, value, min }) => (
+const Input: FC<Props> = ({ onChange, name, type = "text", value, min }) => (
   <input
     className="w-full rounded py-1 px-2 text-lg text-dark"
     min={min}

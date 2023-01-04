@@ -5,23 +5,50 @@
       "login": 12345,
       "password": "123",
       "fullName": "John Doe",
-      "balance": 1900,
+      "balance": 1996,
       "accountNumber": "12 3456 7890 1234 5678 9012 3456",
       "operations": [
         {
-          "id": 1672654150804,
+          "id": 1672829992442,
           "type": "outgoing",
-          "amount": 100,
-          "date": 1672654150804,
-          "title": "Gift",
+          "amount": 5,
+          "date": 1672829992442,
+          "title": "Siemka",
           "receiver": 54321,
-          "balanceAfterOperation": 1900
+          "balanceAfterOperation": 1996
         },
         {
-          "id": 1672654109904,
+          "id": 1672829885868,
+          "type": "outgoing",
+          "amount": 1.1,
+          "date": 1672829885868,
+          "title": "Tip 2",
+          "receiver": 54321,
+          "balanceAfterOperation": 2001
+        },
+        {
+          "id": 1672829829102,
+          "type": "incoming",
+          "amount": 1.1,
+          "date": 1672829829102,
+          "title": "Tip",
+          "sender": 54321,
+          "balanceAfterOperation": 2002.1
+        },
+        {
+          "id": 1672829804925,
+          "type": "incoming",
+          "amount": 1,
+          "date": 1672829804925,
+          "title": "Tip",
+          "sender": 54321,
+          "balanceAfterOperation": 2001
+        },
+        {
+          "id": 1672829763919,
           "type": "incoming",
           "amount": 2000,
-          "date": 1672654109904,
+          "date": 1672829763919,
           "title": "Paycheck",
           "sender": 54321,
           "balanceAfterOperation": 2000
@@ -33,23 +60,50 @@
       "login": 54321,
       "password": "123",
       "fullName": "Bob Odenkirk",
-      "balance": 8100,
+      "balance": 8004,
       "accountNumber": "12 3456 7809 8765 4321 0987 6543",
       "operations": [
         {
-          "id": 1672654150804,
+          "id": 1672829992442,
           "type": "incoming",
-          "amount": 100,
-          "date": 1672654150804,
-          "title": "Gift",
+          "amount": 5,
+          "date": 1672829992442,
+          "title": "Siemka",
           "sender": 12345,
-          "balanceAfterOperation": 8100
+          "balanceAfterOperation": 8004
         },
         {
-          "id": 1672654109904,
+          "id": 1672829885868,
+          "type": "incoming",
+          "amount": 1.1,
+          "date": 1672829885868,
+          "title": "Tip 2",
+          "sender": 12345,
+          "balanceAfterOperation": 7999
+        },
+        {
+          "id": 1672829829102,
+          "type": "outgoing",
+          "amount": 1.1,
+          "date": 1672829829102,
+          "title": "Tip",
+          "receiver": 12345,
+          "balanceAfterOperation": 7997.9
+        },
+        {
+          "id": 1672829804925,
+          "type": "outgoing",
+          "amount": 1,
+          "date": 1672829804925,
+          "title": "Tip",
+          "receiver": 12345,
+          "balanceAfterOperation": 7999
+        },
+        {
+          "id": 1672829763919,
           "type": "outgoing",
           "amount": 2000,
-          "date": 1672654109904,
+          "date": 1672829763919,
           "title": "Paycheck",
           "receiver": 12345,
           "balanceAfterOperation": 8000
