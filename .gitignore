@@ -9,6 +9,7 @@ lerna-debug.log*
 
 .env
 todo
+initialdb.json
 
 node_modules
 dist

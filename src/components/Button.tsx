@@ -5,12 +5,15 @@ interface Props {
   children: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
+  isRed?: boolean;
 }
 
-const Button: FC<Props> = ({ children, onClick, disabled }) => (
+const Button: FC<Props> = ({ children, onClick, disabled, isRed }) => (
   <button
-    className={classNames("rounded bg-primary px-5 py-2 transition-opacity ", {
+    className={classNames("rounded px-5 py-2 transition-opacity ", {
       "opacity-70": disabled,
+      "bg-primary": !isRed,
+      "bg-red": isRed,
     })}
     onClick={onClick}
     disabled={disabled}

@@ -27,7 +27,7 @@ const OperationModal: FC<Props> = ({ isVisible, setIsVisible, data }) => {
         .get(`http://localhost:3000/users/${data.receiver || data.sender}`)
         .then((res) => {
           const { fullName, accountNumber: accNumber }: User = res.data;
-          const type = data.receiver ? "Sender" : "Receiver";
+          const type = data.receiver ? "Receiver" : "Sender";
           setSenderOrReceiver({
             type,
             payload: {

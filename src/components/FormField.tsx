@@ -4,23 +4,22 @@ import Label from "./Label";
 
 interface Props {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-  type: "text" | "password" | "number";
+  type?: "text" | "password" | "number";
   name: string;
   label: string;
   value: string | number;
-  min?: number;
 }
 
-const FormField: FC<Props> = ({ name, label, onChange, type, value, min }) => (
+const FormField: FC<Props> = ({
+  name,
+  label,
+  onChange,
+  type = "text",
+  value,
+}) => (
   <div className="grid w-full gap-2">
     <Label htmlFor={name}>{label}</Label>
-    <Input
-      value={value}
-      onChange={onChange}
-      type={type}
-      name={name}
-      min={min}
-    />
+    <Input value={value} onChange={onChange} type={type} name={name} />
   </div>
 );
 

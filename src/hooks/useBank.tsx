@@ -94,8 +94,12 @@ const useBank = () => {
     setError("");
 
     // calculate new balances
-    const newSenderBalance: number = user.balance - amount;
-    const newReceiverBalance: number = receiver.balance + amount;
+    const newSenderBalance: number = parseFloat(
+      (user.balance - amount).toFixed(2)
+    );
+    const newReceiverBalance: number = parseFloat(
+      (receiver.balance + amount).toFixed(2)
+    );
 
     // create operation-like object for sender.
     const senderOperation: Operation = {
@@ -143,6 +147,7 @@ const useBank = () => {
 
   return {
     error,
+    setError,
     login,
     logout,
     transfer,
