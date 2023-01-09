@@ -1,4 +1,12 @@
-import { createContext, FC, ReactNode, useContext, useReducer } from "react";
+import {
+  createContext,
+  FC,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useReducer,
+  useState,
+} from "react";
 
 type AuthActions = "LOGIN" | "LOGOUT";
 
@@ -12,12 +20,16 @@ type ReducerAction = { type: AuthActions; payload: User | null };
 
 interface AuthContextValues {
   user: ReducerState;
-  dispatch: React.Dispatch<ReducerAction>;
+  dispatchUser: React.Dispatch<ReducerAction>;
+  cards: Card[];
+  setCards: React.Dispatch<SetStateAction<Card[]>>;
 }
 
 const AuthenticationContext = createContext<AuthContextValues>({
   user: null,
-  dispatch: () => {},
+  dispatchUser: () => {},
+  cards: [],
+  setCards: () => {},
 });
 
 const authReducer = (state: ReducerState, action: ReducerAction) => {
@@ -32,14 +44,16 @@ const authReducer = (state: ReducerState, action: ReducerAction) => {
 };
 
 const AuthContext: FC<Props> = ({ children }) => {
-  const [user, dispatch] = useReducer(authReducer, null);
-  console.log("User updated", user);
+  const [user, dispatchUser] = useReducer(authReducer, null);
+  const [cards, setCards] = useState<Card[]>([]);
 
   return (
     <AuthenticationContext.Provider
       value={{
         user,
-        dispatch,
+        dispatchUser,
+        cards,
+        setCards,
       }}
     >
       {children}

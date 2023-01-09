@@ -11,6 +11,7 @@ const Sidebar: FC = () => {
       <nav className="grid justify-items-center gap-5">
         <NavItem to="/dashboard">Dashboard</NavItem>
         <NavItem to="/transfer">Transfer</NavItem>
+        <NavItem to="/cards">Cards</NavItem>
         <NavItem to="/settings">Settings</NavItem>
       </nav>
       <Button onClick={logout}>Logout</Button>

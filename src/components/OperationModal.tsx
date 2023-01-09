@@ -50,7 +50,7 @@ const OperationModal: FC<Props> = ({ isVisible, setIsVisible, data }) => {
   }
 
   return (
-    <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-[rgba(0,0,0,0.025)]">
+    <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-[rgba(0,0,0,0.5)]">
       <div className="relative border-2 border-primary bg-dark p-12">
         <Heading>Operation nr. {data.id}</Heading>
         <Paragraph>Title: {data.title}</Paragraph>

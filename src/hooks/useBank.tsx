@@ -13,7 +13,7 @@ const useBank = () => {
   const now = Date.now();
 
   const [error, setError] = useState("");
-  const { user, dispatch } = useAuthContext();
+  const { user, dispatchUser, setCards } = useAuthContext();
   const navigate = useNavigate();
 
   const login = async (credentials: Credentials, isInitial?: boolean) => {
@@ -33,7 +33,7 @@ const useBank = () => {
       return;
     }
 
-    const user = userResponse.data[0];
+    const user: User = userResponse.data[0];
 
     if (user.password != credentials.password) {
       setError("Password is not valid.");
@@ -42,8 +42,15 @@ const useBank = () => {
 
     setError("");
 
+    const cardsResponse = await axios
+      .get(`http://localhost:3000/cards?ownerID=${user.id}`)
+      .catch((err) => console.log(err));
+
     flushSync(() => {
-      dispatch({ type: "LOGIN", payload: user });
+      if (cardsResponse?.data.length) {
+        setCards(cardsResponse.data);
+      }
+      dispatchUser({ type: "LOGIN", payload: user });
     });
 
     if (isInitial) {
@@ -52,7 +59,8 @@ const useBank = () => {
   };
 
   const logout = () => {
-    dispatch({ type: "LOGOUT", payload: null });
+    dispatchUser({ type: "LOGOUT", payload: null });
+    setCards([]);
   };
 
   const transfer = async (

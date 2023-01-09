@@ -19,6 +19,13 @@ declare global {
     accountNumber: string;
     operations: Operation[];
   }
+
+  interface Card {
+    id: string;
+    validThru: number;
+    ownerID: number;
+    CVV: number;
+  }
 }
 
 export {};

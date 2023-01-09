@@ -5,9 +5,18 @@
       "login": 12345,
       "password": "123",
       "fullName": "John Doe",
-      "balance": 3000,
+      "balance": 2000,
       "accountNumber": "12 3456 7890 1234 5678 9012 3456",
       "operations": [
+        {
+          "id": 1673269144988,
+          "type": "outgoing",
+          "amount": 1000,
+          "date": 1673269144988,
+          "title": "Czesc",
+          "receiver": 54321,
+          "balanceAfterOperation": 2000
+        },
         {
           "id": 1673267781558,
           "type": "incoming",
@@ -24,9 +33,18 @@
       "login": 54321,
       "password": "123",
       "fullName": "Bob Odenkirk",
-      "balance": 7000,
+      "balance": 8000,
       "accountNumber": "12 3456 7809 8765 4321 0987 6543",
       "operations": [
+        {
+          "id": 1673269144988,
+          "type": "incoming",
+          "amount": 1000,
+          "date": 1673269144988,
+          "title": "Czesc",
+          "sender": 12345,
+          "balanceAfterOperation": 8000
+        },
         {
           "id": 1673267781558,
           "type": "outgoing",
@@ -37,6 +55,14 @@
           "balanceAfterOperation": 7000
         }
       ]
+    }
+  ],
+  "cards": [
+    {
+      "id": "1234 5678 9012 3456",
+      "validThru": 1733007600000,
+      "ownerID": 12345,
+      "CVV": 123
     }
   ]
 }

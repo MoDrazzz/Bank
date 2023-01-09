@@ -8,6 +8,7 @@ import {
 import Root from "screens/Root";
 import Dashboard from "screens/Dashboard";
 import Transfer from "screens/Transfer";
+import Cards from "screens/Cards";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "transfer",
         element: <Transfer />,
+      },
+      {
+        path: "cards",
+        element: <Cards />,
       },
     ],
   },
