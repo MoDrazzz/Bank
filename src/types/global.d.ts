@@ -24,7 +24,7 @@ declare global {
     id: string;
     validThru: number;
     ownerID: number;
-    CVV: number;
+    CVC: number;
   }
 }
 

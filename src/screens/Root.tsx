@@ -18,7 +18,7 @@ const Root: FC = () => {
           </div>
           <Header />
           <Sidebar />
-          <main className="border-x-4 border-white px-24 pt-12">
+          <main className="overflow-scroll border-x-4 border-white px-24 py-12">
             <Outlet />
           </main>
           <OperationsHistory />
