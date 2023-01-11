@@ -62,7 +62,22 @@
       "id": "1234 5678 9012 3456",
       "validThru": 1733007600000,
       "ownerID": 12345,
-      "CVC": 538
+      "CVC": 538,
+      "requestPending": false
+    },
+    {
+      "id": "1234 5678 3452 8910",
+      "validThru": 1733007600000,
+      "ownerID": 12345,
+      "CVC": 162,
+      "requestPending": true
+    },
+    {
+      "id": "1234 5678 9824 1236",
+      "validThru": 1733007600000,
+      "ownerID": 54321,
+      "CVC": 824,
+      "requestPending": true
     }
   ],
   "admins": [

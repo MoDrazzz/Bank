@@ -26,6 +26,11 @@ declare global {
     ownerID: number;
     CVC: number;
   }
+
+  interface PendingCardRequest {
+    card: Card;
+    owner: User;
+  }
 }
 
 export {};

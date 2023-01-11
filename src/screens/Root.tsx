@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useAuthContext } from "contexts/AuthContext";
 import Logo from "components/Logo";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -10,14 +10,17 @@ import SideBar from "components/SideBar";
 
 const Root: FC = () => {
   const { user } = useAuthContext();
+  const [isUserAdmin, setIsUserAdmin] = useState(false);
+
+  const { state } = useLocation();
+
+  useEffect(() => {
+    setIsUserAdmin(state.isAdmin);
+  }, []);
 
   if (!user) {
     return <Navigate to="/login" />;
   }
-
-  const {
-    state: { isAdmin },
-  } = useLocation();
 
   return (
     <>
@@ -26,11 +29,11 @@ const Root: FC = () => {
           <Logo />
         </div>
         <Header />
-        <SideBar isAdmin={isAdmin} />
+        <SideBar isAdmin={isUserAdmin} />
         <main className="overflow-scroll border-x-4 border-white px-24 py-12">
-          <Outlet context={{ isAdmin }} />
+          <Outlet context={{ isUserAdmin }} />
         </main>
-        {isAdmin ? null : <OperationsHistory />}
+        {isUserAdmin ? null : <OperationsHistory />}
       </div>
     </>
   );

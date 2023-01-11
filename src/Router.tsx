@@ -9,6 +9,7 @@ import Root from "screens/Root";
 import Dashboard from "screens/Dashboard";
 import Transfer from "screens/Transfer";
 import Cards from "screens/Cards";
+import CardRequests from "screens/CardRequests";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "cards",
         element: <Cards />,
+      },
+      {
+        path: "cardRequests",
+        element: <CardRequests />,
       },
     ],
   },

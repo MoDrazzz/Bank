@@ -165,12 +165,41 @@ const useBank = () => {
     return 200;
   };
 
+  const getPendingCardRequests = async (): Promise<PendingCardRequest[]> => {
+    const cardsResponse = await axios
+      .get(`http://localhost:3000/cards?requestPending=true`)
+      .catch((err) => console.log(err));
+
+    if (!cardsResponse?.data) {
+      setError("Can not connect to the database.");
+      return [];
+    }
+
+    const cards: Card[] = [...cardsResponse.data];
+
+    const requests = await Promise.all(
+      cards.map(async (card) => {
+        const ownerRequest = await axios
+          .get(`http://localhost:3000/users?id=${card.ownerID}`)
+          .catch((err) => console.log(err));
+
+        return {
+          card,
+          owner: ownerRequest?.data[0],
+        };
+      })
+    );
+
+    return requests;
+  };
+
   return {
     error,
     setError,
     login,
     logout,
     transfer,
+    getPendingCardRequests,
   };
 };
 
