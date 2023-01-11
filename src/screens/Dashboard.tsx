@@ -1,18 +1,16 @@
-import Heading from "components/Heading";
-import { useAuthContext } from "contexts/AuthContext";
+import AdminDashboard from "components/AdminDashboard";
+import UserDashboard from "components/UserDashboard";
 import { FC } from "react";
+import { useOutletContext } from "react-router-dom";
+
+interface OutletContext {
+  isAdmin: boolean;
+}
 
 const Dashboard: FC = () => {
-  const { user } = useAuthContext();
+  const { isAdmin } = useOutletContext<OutletContext>();
 
-  return (
-    <>
-      <Heading>
-        Balance: <span className="text-primary">{user?.balance}$</span>
-      </Heading>
-      <p>Account number: {user?.accountNumber}</p>
-    </>
-  );
+  return isAdmin ? <AdminDashboard /> : <UserDashboard />;
 };
 
 export default Dashboard;

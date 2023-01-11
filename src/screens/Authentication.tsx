@@ -5,7 +5,11 @@ import { flushSync } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import useBank from "hooks/useBank";
 
-const Authentication: FC = () => {
+interface Props {
+  isAdmin?: boolean;
+}
+
+const Authentication: FC<Props> = ({ isAdmin = false }) => {
   const { error, login } = useBank();
 
   const [formValues, setFormValues] = useState({
@@ -21,7 +25,7 @@ const Authentication: FC = () => {
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
-    login(formValues, true);
+    login(formValues, true, isAdmin);
   };
 
   return (

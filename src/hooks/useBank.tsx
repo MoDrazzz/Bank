@@ -16,9 +16,17 @@ const useBank = () => {
   const { user, dispatchUser, setCards } = useAuthContext();
   const navigate = useNavigate();
 
-  const login = async (credentials: Credentials, isInitial?: boolean) => {
+  const login = async (
+    credentials: Credentials,
+    isInitial?: boolean,
+    isAdmin?: boolean
+  ) => {
     const userResponse = await axios
-      .get(`http://localhost:3000/users?login=${credentials.login}`)
+      .get(
+        `http://localhost:3000/${isAdmin ? "admins" : "users"}?login=${
+          credentials.login
+        }`
+      )
       .catch((err) => console.log(err));
 
     // !userResponse.data -> no database connection
@@ -54,7 +62,11 @@ const useBank = () => {
     });
 
     if (isInitial) {
-      navigate("/dashboard");
+      navigate("/dashboard", {
+        state: {
+          isAdmin,
+        },
+      });
     }
   };
 

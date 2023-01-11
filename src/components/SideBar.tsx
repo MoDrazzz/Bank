@@ -1,22 +1,24 @@
 import useBank from "hooks/useBank";
 import { FC } from "react";
+import AdminSidebar from "./AdminSideBar";
 import Button from "./Button";
-import NavItem from "./NavItem";
+import UserSideBar from "./UserSideBar";
 
-const Sidebar: FC = () => {
+interface Props {
+  isAdmin: boolean;
+}
+
+const SideBar: FC<Props> = ({ isAdmin }) => {
   const { logout } = useBank();
 
   return (
     <aside className="flex flex-col items-center justify-between pt-12 pb-10">
       <nav className="grid justify-items-center gap-5">
-        <NavItem to="/dashboard">Dashboard</NavItem>
-        <NavItem to="/transfer">Transfer</NavItem>
-        <NavItem to="/cards">Cards</NavItem>
-        <NavItem to="/settings">Settings</NavItem>
+        {isAdmin ? <AdminSidebar /> : <UserSideBar />}
       </nav>
       <Button onClick={logout}>Logout</Button>
     </aside>
   );
 };
 
-export default Sidebar;
+export default SideBar;
