@@ -1,10 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import { useAuthContext } from "contexts/AuthContext";
 import Logo from "components/Logo";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import OperationsHistory from "components/OperationsHistory";
-import UserSidebar from "components/UserSideBar";
-import AdminSidebar from "components/AdminSideBar";
 import Header from "components/Header";
 import SideBar from "components/SideBar";
 
@@ -15,7 +13,9 @@ const Root: FC = () => {
   const { state } = useLocation();
 
   useEffect(() => {
-    setIsUserAdmin(state.isAdmin);
+    if (user) {
+      setIsUserAdmin(state.isAdmin);
+    }
   }, []);
 
   if (!user) {

@@ -5,9 +5,18 @@
       "login": 12345,
       "password": "123",
       "fullName": "John Doe",
-      "balance": 2000,
+      "balance": 1900,
       "accountNumber": "12 3456 7890 1234 5678 9012 3456",
       "operations": [
+        {
+          "id": 1673523470033,
+          "type": "outgoing",
+          "amount": 100,
+          "date": 1673523470033,
+          "title": "Tip",
+          "receiver": 54321,
+          "balanceAfterOperation": 1900
+        },
         {
           "id": 1673269144988,
           "type": "outgoing",
@@ -33,9 +42,18 @@
       "login": 54321,
       "password": "123",
       "fullName": "Bob Odenkirk",
-      "balance": 8000,
+      "balance": 8100,
       "accountNumber": "12 3456 7809 8765 4321 0987 6543",
       "operations": [
+        {
+          "id": 1673523470033,
+          "type": "incoming",
+          "amount": 100,
+          "date": 1673523470033,
+          "title": "Tip",
+          "sender": 12345,
+          "balanceAfterOperation": 8100
+        },
         {
           "id": 1673269144988,
           "type": "incoming",
