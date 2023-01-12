@@ -6,6 +6,7 @@ import FormField from "./FormField";
 import Heading from "./Heading";
 import Input from "./Input";
 import Label from "./Label";
+import List from "./List";
 import OperationComponent from "./Operation";
 import Paragraph from "./Paragraph";
 
@@ -45,7 +46,7 @@ const OperationsHistory: FC = () => {
           label="Filter by title"
         />
       </div>
-      <ul className="grid gap-2 overflow-y-scroll">
+      <List>
         {!operations.length ? (
           <Paragraph>No operations found.</Paragraph>
         ) : (
@@ -53,7 +54,7 @@ const OperationsHistory: FC = () => {
             <OperationComponent key={operation.id} data={operation} />
           ))
         )}
-      </ul>
+      </List>
     </aside>
   );
 };

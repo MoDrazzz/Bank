@@ -16,7 +16,7 @@ const Modal: FC<Props> = ({ children, isVisible, setIsVisible }) => (
       }
     )}
   >
-    <div className="relative border-2 border-primary bg-dark p-12">
+    <div className="relative grid gap-3 border-2 border-primary bg-dark p-12">
       {children}
       <button
         onClick={() => setIsVisible(false)}
