@@ -25,6 +25,7 @@ declare global {
     validThru: number;
     ownerID: number;
     CVC: number;
+    requestPending: boolean;
   }
 
   interface PendingCardRequest {

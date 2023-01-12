@@ -2,7 +2,8 @@ import { useAuthContext } from "contexts/AuthContext";
 import { FC } from "react";
 import CardItem from "./CardItem";
 import CardLine from "./CardLine";
-import Paragraph from "./Paragraph";
+import classNames from "classnames";
+import Heading from "./Heading";
 
 interface Props {
   data: Card;
@@ -39,6 +40,16 @@ const Card: FC<Props> = ({ data }) => {
         <CardLine />
         <CardLine />
         <CardLine />
+      </div>
+      <div
+        className={classNames(
+          "absolute top-0 left-0 z-30 grid h-full w-full place-items-center bg-[rgba(0,0,0,0.7)]",
+          {
+            hidden: !data.requestPending,
+          }
+        )}
+      >
+        <Heading>Request Pending</Heading>
       </div>
     </div>
   );
