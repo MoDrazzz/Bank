@@ -40,9 +40,13 @@ const CardRequests: FC = () => {
             <ListItem>Owner ID</ListItem>
           </div>
           <List>
-            {pendingCardRequests.map((request) => (
-              <CardRequest key={request.card.id} request={request} />
-            ))}
+            {pendingCardRequests
+              .sort((a, b) => {
+                return b.card.validThru - a.card.validThru;
+              })
+              .map((request) => (
+                <CardRequest key={request.card.id} request={request} />
+              ))}
           </List>
           <Paragraph>{error}</Paragraph>
         </>

@@ -10,8 +10,6 @@ interface Credentials {
 }
 
 const useBank = () => {
-  const now = Date.now();
-
   const [error, setError] = useState("");
   const { user, dispatchUser, cards, setCards } = useAuthContext();
   const navigate = useNavigate();
@@ -93,9 +91,7 @@ const useBank = () => {
     amount: number,
     title: string
   ): Promise<void | number> => {
-    if (!user) {
-      return navigate("/");
-    }
+    if (!user) return navigate("/");
 
     // first of all check if receiver's account number is not the user's one ( ͡° ͜ʖ ͡°)
     if (receiversAccountNumber == user.accountNumber) {
@@ -133,6 +129,8 @@ const useBank = () => {
     const newReceiverBalance: number = parseFloat(
       (receiver.balance + amount).toFixed(2)
     );
+
+    const now = Date.now();
 
     // create operation-like object for sender.
     const senderOperation: Operation = {
@@ -196,9 +194,7 @@ const useBank = () => {
   };
 
   const handleCardRequest = async (card: Card, type: "accept" | "deny") => {
-    if (!user) {
-      return navigate("/");
-    }
+    if (!user) return navigate("/");
 
     if (type == "accept") {
       const acceptCardResponse = await axios
@@ -232,6 +228,45 @@ const useBank = () => {
     // });
   };
 
+  const generateXDigitNumber = (x: number) => {
+    const num = Math.floor(
+      Math.random() * (parseInt("1" + "0".repeat(x)) - 1) + 1
+    );
+
+    return num.toString().padStart(x, "0");
+  };
+
+  const requestNewCard = async () => {
+    if (!user) return navigate("/");
+
+    const hasRequestAlready = cards.find((card) => {
+      return card.requestPending == true;
+    });
+
+    if (hasRequestAlready) {
+      setError("You can request only one card at once!");
+      return;
+    }
+
+    const now = new Date();
+    const validThru = new Date(now.getFullYear() + 2, now.getMonth()).getTime();
+
+    const addCardResponse = await axios
+      .post(`http://localhost:3000/cards`, {
+        id: `1234 5678 ${generateXDigitNumber(4)} ${generateXDigitNumber(4)}`,
+        validThru,
+        ownerID: user?.id,
+        CVC: parseInt(generateXDigitNumber(3)),
+        requestPending: true,
+      })
+      .catch((err) => console.log(err));
+
+    if (addCardResponse?.status != 200) setError("Something went wrong.");
+
+    setError("");
+    login({ login: user.login, password: user.password }, false);
+  };
+
   return {
     error,
     setError,
@@ -240,6 +275,7 @@ const useBank = () => {
     transfer,
     getPendingCardRequests,
     handleCardRequest,
+    requestNewCard,
   };
 };
 

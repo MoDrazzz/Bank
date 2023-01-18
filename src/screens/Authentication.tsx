@@ -49,7 +49,7 @@ const Authentication: FC<Props> = ({ isAdmin = false }) => {
           onClick={handleLogin}
           disabled={!formValues.login || !formValues.password}
         >
-          Login
+          {isAdmin ? "Login as admin" : "Login"}
         </Button>
         <p className="absolute bottom-0 h-12 text-center leading-[3rem] text-red">
           {error}
