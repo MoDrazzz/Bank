@@ -13,7 +13,7 @@ const useBank = () => {
   const now = Date.now();
 
   const [error, setError] = useState("");
-  const { user, dispatchUser, setCards } = useAuthContext();
+  const { user, dispatchUser, cards, setCards } = useAuthContext();
   const navigate = useNavigate();
 
   const login = async (
@@ -50,16 +50,29 @@ const useBank = () => {
 
     setError("");
 
-    const cardsResponse = await axios
-      .get(`http://localhost:3000/cards?ownerID=${user.id}`)
-      .catch((err) => console.log(err));
+    if (isAdmin) {
+      const cardRequestsResponse = await axios
+        .get(`http://localhost:3000/cards?requestPending=true`)
+        .catch((err) => console.log(err));
 
-    flushSync(() => {
-      if (cardsResponse?.data.length) {
-        setCards(cardsResponse.data);
-      }
-      dispatchUser({ type: "LOGIN", payload: user });
-    });
+      flushSync(() => {
+        if (cardRequestsResponse?.data) {
+          setCards(cardRequestsResponse.data);
+        }
+        dispatchUser({ type: "LOGIN", payload: user });
+      });
+    } else {
+      const cardsResponse = await axios
+        .get(`http://localhost:3000/cards?ownerID=${user.id}`)
+        .catch((err) => console.log(err));
+
+      flushSync(() => {
+        if (cardsResponse?.data.length) {
+          setCards(cardsResponse.data);
+        }
+        dispatchUser({ type: "LOGIN", payload: user });
+      });
+    }
 
     if (isInitial) {
       navigate("/dashboard", {
@@ -166,17 +179,6 @@ const useBank = () => {
   };
 
   const getPendingCardRequests = async (): Promise<PendingCardRequest[]> => {
-    const cardsResponse = await axios
-      .get(`http://localhost:3000/cards?requestPending=true`)
-      .catch((err) => console.log(err));
-
-    if (!cardsResponse?.data) {
-      setError("Can not connect to the database.");
-      return [];
-    }
-
-    const cards: Card[] = [...cardsResponse.data];
-
     const requests = await Promise.all(
       cards.map(async (card) => {
         const ownerRequest = await axios
@@ -193,6 +195,43 @@ const useBank = () => {
     return requests;
   };
 
+  const handleCardRequest = async (card: Card, type: "accept" | "deny") => {
+    if (!user) {
+      return navigate("/");
+    }
+
+    if (type == "accept") {
+      const acceptCardResponse = await axios
+        .patch(`http://localhost:3000/cards/${card.id}`, {
+          requestPending: false,
+        })
+        .catch((err) => console.error(err));
+
+      if (acceptCardResponse?.status != 200) {
+        setError("Something went wrong.");
+      } else {
+        setError("");
+        login({ login: user.login, password: user.password }, false, true);
+      }
+    }
+    if (type == "deny") {
+      const acceptCardResponse = await axios
+        .delete(`http://localhost:3000/cards/${card.id}`)
+        .catch((err) => console.error(err));
+
+      if (acceptCardResponse?.status != 200) {
+        setError("Something went wrong.");
+      } else {
+        setError("");
+        login({ login: user.login, password: user.password }, false, true);
+      }
+    }
+    // const test = await axios.patch(`http://localhost:3000/users/${receiver.id}`, {
+    //   balance: newReceiverBalance,
+    //   operations: [receiverOperation, ...receiver.operations],
+    // });
+  };
+
   return {
     error,
     setError,
@@ -200,6 +239,7 @@ const useBank = () => {
     logout,
     transfer,
     getPendingCardRequests,
+    handleCardRequest,
   };
 };
 

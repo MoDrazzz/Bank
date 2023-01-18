@@ -3,17 +3,17 @@ import List from "components/List";
 import ListItem from "components/ListItem";
 import Paragraph from "components/Paragraph";
 import useBank from "hooks/useBank";
-import { FC, Fragment, useEffect, useState } from "react";
-import Modal from "components/Modal";
-import Button from "components/Button";
+import { FC, useEffect, useState } from "react";
+import CardRequest from "components/CardRequest";
+import { useAuthContext } from "contexts/AuthContext";
 
 const CardRequests: FC = () => {
-  const { getPendingCardRequests } = useBank();
+  const { getPendingCardRequests, error } = useBank();
   const [pendingCardRequests, setPendingCardRequests] = useState<
     PendingCardRequest[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
+  const { cards } = useAuthContext();
 
   useEffect(() => {
     setIsLoading(true);
@@ -24,7 +24,7 @@ const CardRequests: FC = () => {
       });
     };
     getRequests();
-  }, []);
+  }, [cards]);
 
   return (
     <div className="grid gap-2">
@@ -41,54 +41,10 @@ const CardRequests: FC = () => {
           </div>
           <List>
             {pendingCardRequests.map((request) => (
-              <Fragment key={request.card.id}>
-                <li
-                  className="grid cursor-pointer grid-cols-[200px_100px_200px_100px] justify-center"
-                  onClick={() => setModalVisible(true)}
-                >
-                  <ListItem>{request.card.id}</ListItem>
-                  <ListItem>
-                    {new Date(request.card.validThru).toLocaleDateString(
-                      "en-gb",
-                      {
-                        year: "2-digit",
-                        month: "2-digit",
-                      }
-                    )}
-                  </ListItem>
-                  <ListItem>{request.owner.fullName}</ListItem>
-                  <ListItem>{request.owner.id}</ListItem>
-                </li>
-                <Modal isVisible={modalVisible} setIsVisible={setModalVisible}>
-                  <Heading>Card nr. {request.card.id}</Heading>
-                  <Paragraph>
-                    Valid thru:{" "}
-                    {new Date(request.card.validThru).toLocaleDateString(
-                      "en-gb",
-                      {
-                        year: "2-digit",
-                        month: "2-digit",
-                      }
-                    )}
-                  </Paragraph>
-                  <Heading>Owner Data</Heading>
-                  <div>
-                    <Paragraph>Full Name: {request.owner.fullName}</Paragraph>
-                    <Paragraph>ID: {request.owner.id}</Paragraph>
-                    <Paragraph>
-                      Account number: {request.owner.accountNumber}
-                    </Paragraph>
-                  </div>
-                  <div className="flex gap-5">
-                    <Button onClick={() => {}}>Accept</Button>
-                    <Button isRed onClick={() => {}}>
-                      Deny
-                    </Button>
-                  </div>
-                </Modal>
-              </Fragment>
+              <CardRequest key={request.card.id} request={request} />
             ))}
           </List>
+          <Paragraph>{error}</Paragraph>
         </>
       ) : (
         <Paragraph>No requests pending at the moment.</Paragraph>

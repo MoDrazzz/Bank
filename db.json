@@ -5,9 +5,18 @@
       "login": 12345,
       "password": "123",
       "fullName": "John Doe",
-      "balance": 1900,
+      "balance": 1750,
       "accountNumber": "12 3456 7890 1234 5678 9012 3456",
       "operations": [
+        {
+          "id": 1674035699341,
+          "type": "outgoing",
+          "amount": 150,
+          "date": 1674035699341,
+          "title": "Suit",
+          "receiver": 54321,
+          "balanceAfterOperation": 1750
+        },
         {
           "id": 1673523470033,
           "type": "outgoing",
@@ -42,9 +51,18 @@
       "login": 54321,
       "password": "123",
       "fullName": "Bob Odenkirk",
-      "balance": 8100,
+      "balance": 8250,
       "accountNumber": "12 3456 7809 8765 4321 0987 6543",
       "operations": [
+        {
+          "id": 1674035699341,
+          "type": "incoming",
+          "amount": 150,
+          "date": 1674035699341,
+          "title": "Suit",
+          "sender": 12345,
+          "balanceAfterOperation": 8250
+        },
         {
           "id": 1673523470033,
           "type": "incoming",
@@ -88,7 +106,7 @@
       "validThru": 1733007600000,
       "ownerID": 12345,
       "CVC": 162,
-      "requestPending": true
+      "requestPending": false
     },
     {
       "id": "1234 5678 9824 1236",
