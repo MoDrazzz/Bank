@@ -15,17 +15,15 @@ const Cards: FC = () => {
   };
 
   return (
-    <div className="grid gap-5">
+    <div className="grid justify-items-start gap-5">
       <Heading>Your cards</Heading>
       <ul className="grid grid-cols-2 gap-5">
         {cards.length
           ? cards.map((cardData) => <Card key={cardData.id} data={cardData} />)
           : "No cards."}
       </ul>
-      <div>
-        <Button onClick={handleRequestNewCard}>Request new card</Button>
-        {error && <Paragraph>{error}</Paragraph>}
-      </div>
+      <Button onClick={handleRequestNewCard}>Request new card</Button>
+      {error && <Paragraph>{error}</Paragraph>}
     </div>
   );
 };

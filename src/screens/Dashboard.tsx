@@ -4,13 +4,13 @@ import { FC } from "react";
 import { useOutletContext } from "react-router-dom";
 
 interface OutletContext {
-  isAdmin: boolean;
+  isUserAdmin: boolean;
 }
 
 const Dashboard: FC = () => {
-  const { isAdmin } = useOutletContext<OutletContext>();
+  const { isUserAdmin } = useOutletContext<OutletContext>();
 
-  return isAdmin ? <AdminDashboard /> : <UserDashboard />;
+  return isUserAdmin ? <AdminDashboard /> : <UserDashboard />;
 };
 
 export default Dashboard;

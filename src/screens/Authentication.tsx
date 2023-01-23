@@ -2,7 +2,7 @@ import Button from "components/Button";
 import FormField from "components/FormField";
 import { FC, useState } from "react";
 import { flushSync } from "react-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import useBank from "hooks/useBank";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Authentication: FC<Props> = ({ isAdmin = false }) => {
-  const { error, login } = useBank();
+  const { error, login, setError } = useBank();
 
   const [formValues, setFormValues] = useState({
     login: "",
@@ -25,7 +25,18 @@ const Authentication: FC<Props> = ({ isAdmin = false }) => {
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
-    login(formValues, true, isAdmin);
+    if (
+      formValues.login.length != parseInt(formValues.login).toString().length
+    ) {
+      setError("Wrong login submitted");
+      return;
+    }
+
+    login(
+      { login: parseInt(formValues.login), password: formValues.password },
+      true,
+      isAdmin
+    );
   };
 
   return (
@@ -49,11 +60,14 @@ const Authentication: FC<Props> = ({ isAdmin = false }) => {
           onClick={handleLogin}
           disabled={!formValues.login || !formValues.password}
         >
-          {isAdmin ? "Login as admin" : "Login"}
+          {isAdmin ? "Login As Admin" : "Login"}
         </Button>
-        <p className="absolute bottom-0 h-12 text-center leading-[3rem] text-red">
-          {error}
-        </p>
+        {error && (
+          <p className="absolute bottom-0 h-12 text-center leading-[3rem] text-red">
+            {error}
+          </p>
+        )}
+        <Link to="/admin">Login as admin {"->"}</Link>
       </form>
     </div>
   );

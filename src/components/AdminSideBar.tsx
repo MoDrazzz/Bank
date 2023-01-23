@@ -6,6 +6,7 @@ const AdminSideBar: FC = () => {
     <>
       <NavItem to="/dashboard">Dashboard</NavItem>
       <NavItem to="/cardRequests">Card Requests</NavItem>
+      <NavItem to="/addUser">Add User</NavItem>
     </>
   );
 };

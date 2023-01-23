@@ -3,11 +3,9 @@ import { FC } from "react";
 import Heading from "./Heading";
 
 const AdminDashboard: FC = () => {
-  const { user } = useAuthContext();
-
   return (
     <>
-      <h1>Hello admin!</h1>
+      <Heading>Hello admin!</Heading>
     </>
   );
 };

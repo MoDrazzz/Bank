@@ -5,8 +5,13 @@ import { flushSync } from "react-dom";
 import { useNavigate } from "react-router-dom";
 
 interface Credentials {
-  login: string;
+  login: number;
   password: string;
+}
+
+interface AddUserReturnValue {
+  status: 200 | 400;
+  user: null | User;
 }
 
 const useBank = () => {
@@ -267,6 +272,51 @@ const useBank = () => {
     login({ login: user.login, password: user.password }, false);
   };
 
+  const generatePassword = () => {
+    const chars =
+      "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let password = "";
+
+    for (let i = 0; i < 10; i++) {
+      password += chars[Math.floor(Math.random() * chars.length - 1) + 1];
+    }
+
+    return password;
+  };
+
+  const addUser = async (fullName: string): Promise<AddUserReturnValue> => {
+    const generatedLogin = Math.floor(Math.random() * 99999 - 10000) + 1;
+
+    const newUserData: User = {
+      id: generatedLogin,
+      login: generatedLogin,
+      password: generatePassword(),
+      fullName,
+      balance: 0,
+      accountNumber: `12 3456 ${generateXDigitNumber(4)} ${generateXDigitNumber(
+        4
+      )} ${generateXDigitNumber(4)} ${generateXDigitNumber(
+        4
+      )} ${generateXDigitNumber(4)}`,
+      operations: [],
+    };
+
+    const addNewUserResponse = await axios
+      .post(`http://localhost:3000/users`, newUserData)
+      .catch((err) => console.log(err));
+
+    console.log(addNewUserResponse);
+
+    if (addNewUserResponse?.status != 201) {
+      setError("Something went wrong.");
+      return { status: 400, user: null };
+    }
+
+    setError("");
+
+    return { status: 200, user: newUserData };
+  };
+
   return {
     error,
     setError,
@@ -276,6 +326,7 @@ const useBank = () => {
     getPendingCardRequests,
     handleCardRequest,
     requestNewCard,
+    addUser,
   };
 };
 

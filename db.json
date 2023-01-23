@@ -5,9 +5,18 @@
       "login": 12345,
       "password": "123",
       "fullName": "John Doe",
-      "balance": 1750,
+      "balance": 1749.9,
       "accountNumber": "12 3456 7890 1234 5678 9012 3456",
       "operations": [
+        {
+          "id": 1674468381111,
+          "type": "outgoing",
+          "amount": 0.1,
+          "date": 1674468381111,
+          "title": "Siemka",
+          "receiver": 50406,
+          "balanceAfterOperation": 1749.9
+        },
         {
           "id": 1674035699341,
           "type": "outgoing",
@@ -91,6 +100,34 @@
           "balanceAfterOperation": 7000
         }
       ]
+    },
+    {
+      "id": 50406,
+      "login": 50406,
+      "password": "@&Ogj7VOYV",
+      "fullName": "Grzegorz Brzeczyszczykiewicz",
+      "balance": 0.1,
+      "accountNumber": "12 3456 6170 5632 9677 1781 9877",
+      "operations": [
+        {
+          "id": 1674468381111,
+          "type": "incoming",
+          "amount": 0.1,
+          "date": 1674468381111,
+          "title": "Siemka",
+          "sender": 12345,
+          "balanceAfterOperation": 0.1
+        }
+      ]
+    },
+    {
+      "id": 35435,
+      "login": 35435,
+      "password": "i&FOGzlP6H",
+      "fullName": "zdaw dawd",
+      "balance": 0,
+      "accountNumber": "12 3456 3564 9230 7985 8400 0995",
+      "operations": []
     }
   ],
   "cards": [
@@ -120,6 +157,20 @@
       "validThru": 1735686000000,
       "ownerID": 12345,
       "CVC": 329,
+      "requestPending": true
+    },
+    {
+      "id": "1234 5678 8042 2275",
+      "validThru": 1735686000000,
+      "ownerID": 50406,
+      "CVC": 691,
+      "requestPending": false
+    },
+    {
+      "id": "1234 5678 9531 3056",
+      "validThru": 1735686000000,
+      "ownerID": 50406,
+      "CVC": 689,
       "requestPending": true
     }
   ],

@@ -12,7 +12,7 @@ declare global {
 
   interface User {
     id: number;
-    login: string;
+    login: number;
     password: string;
     fullName: string;
     balance: number;
