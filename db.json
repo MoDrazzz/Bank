@@ -15,6 +15,14 @@
       "fullName": "Bob Odenkirk",
       "balance": 6900,
       "accountNumber": "12 3456 7809 8765 4321 0987 6543"
+    },
+    {
+      "id": 47869,
+      "login": 47869,
+      "password": "L!Pp87Y8aK",
+      "fullName": "Grzegorz Brzeczyszczykiewicz",
+      "balance": 0,
+      "accountNumber": "12 3456 6160 9407 9569 7408 3785"
     }
   ],
   "cards": [
@@ -37,27 +45,6 @@
       "validThru": 1733007600000,
       "ownerID": 54321,
       "CVC": 824,
-      "requestPending": true
-    },
-    {
-      "id": "1234 5678 2301 8162",
-      "validThru": 1735686000000,
-      "ownerID": 12345,
-      "CVC": 329,
-      "requestPending": true
-    },
-    {
-      "id": "1234 5678 8042 2275",
-      "validThru": 1735686000000,
-      "ownerID": 50406,
-      "CVC": 691,
-      "requestPending": false
-    },
-    {
-      "id": "1234 5678 9531 3056",
-      "validThru": 1735686000000,
-      "ownerID": 50406,
-      "CVC": 689,
       "requestPending": true
     }
   ],

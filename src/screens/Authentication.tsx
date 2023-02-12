@@ -67,7 +67,9 @@ const Authentication: FC<Props> = ({ isAdmin = false }) => {
             {error}
           </p>
         )}
-        <Link to="/admin">Login as admin {"->"}</Link>
+        <Link to={isAdmin ? "/login" : "/admin"}>
+          {isAdmin ? "Login as user ->" : "Login as admin ->"}
+        </Link>
       </form>
     </div>
   );
