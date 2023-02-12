@@ -23,6 +23,8 @@ interface AuthContextValues {
   dispatchUser: React.Dispatch<ReducerAction>;
   cards: Card[];
   setCards: React.Dispatch<SetStateAction<Card[]>>;
+  operations: Operation[];
+  setOperations: React.Dispatch<SetStateAction<Operation[]>>;
 }
 
 const AuthenticationContext = createContext<AuthContextValues>({
@@ -30,6 +32,8 @@ const AuthenticationContext = createContext<AuthContextValues>({
   dispatchUser: () => {},
   cards: [],
   setCards: () => {},
+  operations: [],
+  setOperations: () => {},
 });
 
 const authReducer = (state: ReducerState, action: ReducerAction) => {
@@ -46,6 +50,7 @@ const authReducer = (state: ReducerState, action: ReducerAction) => {
 const AuthContext: FC<Props> = ({ children }) => {
   const [user, dispatchUser] = useReducer(authReducer, null);
   const [cards, setCards] = useState<Card[]>([]);
+  const [operations, setOperations] = useState<Operation[]>([]);
 
   return (
     <AuthenticationContext.Provider
@@ -54,6 +59,8 @@ const AuthContext: FC<Props> = ({ children }) => {
         dispatchUser,
         cards,
         setCards,
+        operations,
+        setOperations
       }}
     >
       {children}

@@ -16,7 +16,8 @@ interface AddUserReturnValue {
 
 const useBank = () => {
   const [error, setError] = useState("");
-  const { user, dispatchUser, cards, setCards } = useAuthContext();
+  const { user, dispatchUser, cards, setCards, setOperations } =
+    useAuthContext();
   const navigate = useNavigate();
 
   const login = async (
@@ -68,11 +69,28 @@ const useBank = () => {
       const cardsResponse = await axios
         .get(`http://localhost:3000/cards?ownerID=${user.id}`)
         .catch((err) => console.log(err));
+      const operationsToUserResponse = await axios
+        .get(`http://localhost:3000/operations?to=${user.id}`)
+        .catch((err) => console.log(err));
+      const operationsFromUserResponse = await axios
+        .get(`http://localhost:3000/operations?from=${user.id}`)
+        .catch((err) => console.log(err));
+
+      if (
+        !operationsToUserResponse?.data ||
+        !operationsFromUserResponse?.data ||
+        !cardsResponse?.data
+      ) {
+        return setError("Something went wrong.");
+      }
+
+      const userOperations = operationsToUserResponse.data.concat(
+        operationsFromUserResponse.data
+      );
 
       flushSync(() => {
-        if (cardsResponse?.data.length) {
-          setCards(cardsResponse.data);
-        }
+        setCards(cardsResponse.data);
+        setOperations(userOperations);
         dispatchUser({ type: "LOGIN", payload: user });
       });
     }
