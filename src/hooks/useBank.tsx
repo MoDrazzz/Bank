@@ -155,42 +155,63 @@ const useBank = () => {
 
     const now = Date.now();
 
-    // create operation-like object for sender.
-    const senderOperation: Operation = {
+    // // create operation-like object for sender.
+    // const senderOperation: Operation = {
+    //   id: now,
+    //   type: "outgoing",
+    //   amount,
+    //   date: now,
+    //   title,
+    //   receiver: receiver.id,
+    //   balanceAfterOperation: newSenderBalance,
+    // };
+
+    // // create operation-like object for receiver.
+    // const receiverOperation: Operation = {
+    //   id: now,
+    //   type: "incoming",
+    //   amount,
+    //   date: now,
+    //   title,
+    //   sender: user.id,
+    //   balanceAfterOperation: newReceiverBalance,
+    // };
+    const operation: Operation = {
       id: now,
-      type: "outgoing",
       amount,
       date: now,
       title,
-      receiver: receiver.id,
-      balanceAfterOperation: newSenderBalance,
+      from: user.id,
+      to: receiver.id,
+      sendersBalanceAfterOperation: newSenderBalance,
+      receiversBalanceAfterOperation: newReceiverBalance,
     };
-
-    // create operation-like object for receiver.
-    const receiverOperation: Operation = {
-      id: now,
-      type: "incoming",
-      amount,
-      date: now,
-      title,
-      sender: user.id,
-      balanceAfterOperation: newReceiverBalance,
-    };
-
-    // console.log(senderOperation, receiverOperation);
 
     // change sender's balance
     // add operation to sender's operation hisotry.
+    // await axios.patch(`http://localhost:3000/users/${user.id}`, {
+    //   balance: newSenderBalance,
+    //   operations: [senderOperation, ...user.operations],
+    // });
+
+    // // change receiver's balance
+    // // add operation to receive's operation history.
+    // await axios.patch(`http://localhost:3000/users/${receiver.id}`, {
+    //   balance: newReceiverBalance,
+    //   operations: [receiverOperation, ...receiver.operations],
+    // });
+
+    // add operation to database
+    await axios.post(`http://localhost:3000/operations`, operation);
+
+    // change sender's balance
     await axios.patch(`http://localhost:3000/users/${user.id}`, {
       balance: newSenderBalance,
-      operations: [senderOperation, ...user.operations],
     });
 
     // change receiver's balance
-    // add operation to receive's operation history.
     await axios.patch(`http://localhost:3000/users/${receiver.id}`, {
       balance: newReceiverBalance,
-      operations: [receiverOperation, ...receiver.operations],
     });
 
     // update current user state in AuthContext.
@@ -316,7 +337,6 @@ const useBank = () => {
       )} ${generateXDigitNumber(4)} ${generateXDigitNumber(
         4
       )} ${generateXDigitNumber(4)}`,
-      operations: [],
     };
 
     const addNewUserResponse = await axios

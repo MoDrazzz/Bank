@@ -1,13 +1,13 @@
 declare global {
   interface Operation {
     id: number;
-    type: "incoming" | "outgoing";
     amount: number;
     date: number;
     title: string;
-    receiver?: number;
-    sender?: number;
-    balanceAfterOperation: number;
+    from: number;
+    to: number;
+    sendersBalanceAfterOperation: number;
+    receiversBalanceAfterOperation: number;
   }
 
   interface User {
@@ -17,7 +17,6 @@ declare global {
     fullName: string;
     balance: number;
     accountNumber: string;
-    operations: Operation[];
   }
 
   interface Card {

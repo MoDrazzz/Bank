@@ -5,6 +5,8 @@ import { FC, useEffect, useState } from "react";
 import Heading from "./Heading";
 import Modal from "./Modal";
 import Paragraph from "./Paragraph";
+import { useAuthContext } from "contexts/AuthContext";
+import { Navigate } from "react-router-dom";
 
 interface Props {
   data: Operation;
@@ -20,14 +22,23 @@ const Operation: FC<Props> = ({ data }) => {
     },
   });
   const operationDate = new Date(data.date);
+  const { user } = useAuthContext();
+
+  if (!user) {
+    return <Navigate to="/" />;
+  }
 
   useEffect(() => {
     const fetchSenderOrReceiver = async () => {
       await axios
-        .get(`http://localhost:3000/users/${data.receiver || data.sender}`)
+        .get(
+          `http://localhost:3000/users/${
+            data.from == user.id ? data.to : data.from
+          }`
+        )
         .then((res) => {
           const { fullName, accountNumber: accNumber }: User = res.data;
-          const type = data.receiver ? "Receiver" : "Sender";
+          const type = user.id == data.from ? "Receiver" : "Sender";
           setSenderOrReceiver({
             type,
             payload: {
@@ -53,11 +64,11 @@ const Operation: FC<Props> = ({ data }) => {
         <ListItem>{new Date(data.date).toLocaleDateString("en-gb")}</ListItem>
         <span
           className={classNames("material-symbols-outlined max-w-[24px]", {
-            "text-primary": data.type == "incoming",
-            "text-red": data.type == "outgoing",
+            "text-primary": data.to == user.id,
+            "text-red": data.from == user.id,
           })}
         >
-          {data.type == "incoming"
+          {data.to == user.id
             ? "keyboard_double_arrow_up"
             : "keyboard_double_arrow_down"}
         </span>
@@ -69,7 +80,10 @@ const Operation: FC<Props> = ({ data }) => {
         <div>
           <Paragraph>Title: {data.title}</Paragraph>
           <Paragraph>
-            Type: <span className="capitalize">{data.type}</span>
+            Type:{" "}
+            <span className="capitalize">
+              {data.from == user.id ? "outgoing" : "incoming"}
+            </span>
           </Paragraph>
           <Paragraph>Amount: {data.amount}$</Paragraph>
           <Paragraph>
@@ -93,7 +107,11 @@ const Operation: FC<Props> = ({ data }) => {
             {senderOrReceiver.payload.accNumber}
           </Paragraph>
           <Paragraph>
-            Balance after operation: {data.balanceAfterOperation}$
+            Balance after operation:{" "}
+            {data.from == user.id
+              ? data.sendersBalanceAfterOperation
+              : data.receiversBalanceAfterOperation}
+            $
           </Paragraph>
         </div>
       </Modal>

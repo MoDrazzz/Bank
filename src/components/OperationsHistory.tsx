@@ -11,27 +11,23 @@ import OperationComponent from "./Operation";
 import Paragraph from "./Paragraph";
 
 const OperationsHistory: FC = () => {
-  const { user } = useAuthContext();
+  const { operations } = useAuthContext();
   const [searchValue, setSearchValue] = useState("");
-  const [operations, setOperations] = useState<Operation[]>([]);
-
-  if (!user) {
-    return <Navigate to="/" />;
-  }
+  const [filteredOperations, setFilteredOperations] = useState<Operation[]>([]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchValue(e.target.value);
 
-    const newOperations = user.operations.filter((operation) =>
+    const newOperations = operations.filter((operation) =>
       operation.title.toLowerCase().startsWith(e.target.value.toLowerCase())
     );
 
-    setOperations(newOperations);
+    setFilteredOperations(newOperations);
   };
 
   useEffect(() => {
-    setOperations(user.operations);
-  }, [user]);
+    setFilteredOperations(operations);
+  }, [operations]);
 
   return (
     <aside className="flex flex-col items-center gap-5 overflow-y-hidden pt-12">
@@ -47,12 +43,14 @@ const OperationsHistory: FC = () => {
         />
       </div>
       <List>
-        {!operations.length ? (
-          <Paragraph>No operations found.</Paragraph>
+        {!filteredOperations.length ? (
+          <Paragraph>No filteredOperations found.</Paragraph>
         ) : (
-          operations.map((operation) => (
-            <OperationComponent key={operation.id} data={operation} />
-          ))
+          filteredOperations
+            .sort((a, b) => b.date - a.date)
+            .map((operation) => (
+              <OperationComponent key={operation.id} data={operation} />
+            ))
         )}
       </List>
     </aside>
