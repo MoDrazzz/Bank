@@ -16,7 +16,7 @@ const AddUser: FC = () => {
 
     const result = await addUser(inputValue);
 
-    if (result.status == 200 && result.user) {
+    if (result.status === 200 && result.user) {
       setInputValue("");
       setNewUser(result.user);
       setStage(2);
@@ -26,7 +26,7 @@ const AddUser: FC = () => {
   return (
     <div className="grid justify-items-start gap-5">
       <Heading>Add User</Heading>
-      {stage == 1 ? (
+      {stage === 1 ? (
         <>
           <Paragraph>
             Enter new user's full name and the rest will be generated
@@ -41,13 +41,13 @@ const AddUser: FC = () => {
             />
             <Button
               onClick={handleAddUser}
-              disabled={inputValue.trim().length == 0}
+              disabled={inputValue.trim().length === 0}
             >
               Add User
             </Button>
           </form>
         </>
-      ) : stage == 2 ? (
+      ) : stage === 2 ? (
         <>
           <Paragraph>New user's data is shown below.*</Paragraph>
           <ul>

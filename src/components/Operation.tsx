@@ -33,12 +33,12 @@ const Operation: FC<Props> = ({ data }) => {
       await axios
         .get(
           `http://localhost:3000/users/${
-            data.from == user.id ? data.to : data.from
+            data.from === user.id ? data.to : data.from
           }`
         )
         .then((res) => {
           const { fullName, accountNumber: accNumber }: User = res.data;
-          const type = user.id == data.from ? "Receiver" : "Sender";
+          const type = user.id === data.from ? "Receiver" : "Sender";
           setSenderOrReceiver({
             type,
             payload: {
@@ -64,11 +64,11 @@ const Operation: FC<Props> = ({ data }) => {
         <ListItem>{new Date(data.date).toLocaleDateString("en-gb")}</ListItem>
         <span
           className={classNames("material-symbols-outlined max-w-[24px]", {
-            "text-primary": data.to == user.id,
-            "text-red": data.from == user.id,
+            "text-primary": data.to === user.id,
+            "text-red": data.from === user.id,
           })}
         >
-          {data.to == user.id
+          {data.to === user.id
             ? "keyboard_double_arrow_up"
             : "keyboard_double_arrow_down"}
         </span>
@@ -82,7 +82,7 @@ const Operation: FC<Props> = ({ data }) => {
           <Paragraph>
             Type:{" "}
             <span className="capitalize">
-              {data.from == user.id ? "outgoing" : "incoming"}
+              {data.from === user.id ? "outgoing" : "incoming"}
             </span>
           </Paragraph>
           <Paragraph>Amount: {data.amount}$</Paragraph>
@@ -108,7 +108,7 @@ const Operation: FC<Props> = ({ data }) => {
           </Paragraph>
           <Paragraph>
             Balance after operation:{" "}
-            {data.from == user.id
+            {data.from === user.id
               ? data.sendersBalanceAfterOperation
               : data.receiversBalanceAfterOperation}
             $

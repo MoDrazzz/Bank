@@ -50,17 +50,17 @@ const AdminOperationsHistory: FC = () => {
           <div className="flex gap-5">
             <FilterOptionInput
               onChange={() => handleFilterOptionChange("id")}
-              checked={filterOption == "id"}
+              checked={filterOption === "id"}
               value="id"
             />
             <FilterOptionInput
               onChange={() => handleFilterOptionChange("from")}
-              checked={filterOption == "from"}
+              checked={filterOption === "from"}
               value="from"
             />
             <FilterOptionInput
               onChange={() => handleFilterOptionChange("to")}
-              checked={filterOption == "to"}
+              checked={filterOption === "to"}
               value="to"
             />
           </div>

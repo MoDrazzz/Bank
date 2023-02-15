@@ -47,7 +47,7 @@ const useBank = () => {
 
     const user: User = userResponse.data[0];
 
-    if (user.password != credentials.password) {
+    if (user.password !== credentials.password) {
       setError("Password is not valid.");
       return;
     }
@@ -123,7 +123,7 @@ const useBank = () => {
     if (!user) return navigate("/");
 
     // first of all check if receiver's account number is not the user's one ( ͡° ͜ʖ ͡°)
-    if (receiversAccountNumber == user.accountNumber) {
+    if (receiversAccountNumber === user.accountNumber) {
       setError("Provided account number is the same as yours. Nice try!");
       return;
     }
@@ -211,26 +211,26 @@ const useBank = () => {
   const handleCardRequest = async (card: Card, type: "accept" | "deny") => {
     if (!user) return navigate("/");
 
-    if (type == "accept") {
+    if (type === "accept") {
       const acceptCardResponse = await axios
         .patch(`http://localhost:3000/cards/${card.id}`, {
           requestPending: false,
         })
         .catch((err) => console.error(err));
 
-      if (acceptCardResponse?.status != 200) {
+      if (acceptCardResponse?.status !== 200) {
         setError("Something went wrong.");
       } else {
         setError("");
         login({ login: user.login, password: user.password }, false, true);
       }
     }
-    if (type == "deny") {
+    if (type === "deny") {
       const acceptCardResponse = await axios
         .delete(`http://localhost:3000/cards/${card.id}`)
         .catch((err) => console.error(err));
 
-      if (acceptCardResponse?.status != 200) {
+      if (acceptCardResponse?.status !== 200) {
         setError("Something went wrong.");
       } else {
         setError("");
@@ -251,7 +251,7 @@ const useBank = () => {
     if (!user) return navigate("/");
 
     const hasRequestAlready = cards.find((card) => {
-      return card.requestPending == true;
+      return card.requestPending === true;
     });
 
     if (hasRequestAlready) {
@@ -272,7 +272,7 @@ const useBank = () => {
       })
       .catch((err) => console.log(err));
 
-    if (addCardResponse?.status != 200) setError("Something went wrong.");
+    if (addCardResponse?.status !== 200) setError("Something went wrong.");
 
     setError("");
     login({ login: user.login, password: user.password }, false);
@@ -305,7 +305,7 @@ const useBank = () => {
 
     do {
       generatedLogin = Math.floor(Math.random() * 99999 - 10000) + 10000;
-    } while (users.some((user) => user.id == generatedLogin));
+    } while (users.some((user) => user.id === generatedLogin));
 
     const newUserData: User = {
       id: generatedLogin,
@@ -324,7 +324,7 @@ const useBank = () => {
       .post(`http://localhost:3000/users`, newUserData)
       .catch((err) => console.log(err));
 
-    if (addNewUserResponse?.status != 201) {
+    if (addNewUserResponse?.status !== 201) {
       setError("Something went wrong.");
       return { status: 400, user: null };
     }

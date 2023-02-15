@@ -29,7 +29,7 @@ const Transfer: FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
 
-    if (name == "amount") {
+    if (name === "amount") {
       const floatValue = +parseFloat(value).toFixed(2);
 
       setFormValues((prev) => ({
@@ -48,7 +48,7 @@ const Transfer: FC = () => {
   };
 
   const handleSend = async () => {
-    if (typeof formValues.amount != "number" || formValues.amount <= 0) {
+    if (typeof formValues.amount !== "number" || formValues.amount <= 0) {
       return;
     }
     transfer(
@@ -68,7 +68,7 @@ const Transfer: FC = () => {
   const getBalanceAfterOperation = (): number | string => {
     if (
       !user?.balance ||
-      typeof formValues.amount != "number" ||
+      typeof formValues.amount !== "number" ||
       formValues.amount <= 0
     ) {
       return "Error";
@@ -105,9 +105,9 @@ const Transfer: FC = () => {
           <div>
             <Button
               disabled={
-                formValues.title.trim().length == 0 ||
-                formValues.receiver.trim().length == 0 ||
-                typeof formValues.amount != "number" ||
+                formValues.title.trim().length === 0 ||
+                formValues.receiver.trim().length === 0 ||
+                typeof formValues.amount !== "number" ||
                 formValues.amount <= 0
               }
               onClick={() => setStage(2)}

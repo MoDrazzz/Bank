@@ -10,7 +10,7 @@ interface Props {
 
 const NavItem: FC<Props> = ({ children, to }) => {
   const location = useLocation();
-  const isActive = location.pathname == to;
+  const isActive = location.pathname === to;
 
   return (
     <NavLink

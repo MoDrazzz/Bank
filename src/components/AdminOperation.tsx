@@ -55,7 +55,7 @@ const AdminOperation: FC<Props> = ({ data }) => {
   }, [modalVisible]);
 
   const handleCancelTransfer = () => {
-    cancelButtonStage == 1 ? setCancelButtonStage(2) : cancelTransfer(data);
+    cancelButtonStage === 1 ? setCancelButtonStage(2) : cancelTransfer(data);
   };
 
   if (!user) {
@@ -100,7 +100,7 @@ const AdminOperation: FC<Props> = ({ data }) => {
             {data.receiversBalanceAfterOperation}
           </Paragraph>
           <Button isRed onClick={handleCancelTransfer}>
-            {cancelButtonStage == 1 ? "Cancel Transfer" : "Confirm"}
+            {cancelButtonStage === 1 ? "Cancel Transfer" : "Confirm"}
           </Button>
           {error}
         </div>

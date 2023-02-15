@@ -26,7 +26,7 @@ const Authentication: FC<Props> = ({ isAdmin = false }) => {
     e.preventDefault();
 
     if (
-      formValues.login.length != parseInt(formValues.login).toString().length
+      formValues.login.length !== parseInt(formValues.login).toString().length
     ) {
       setError("Wrong login submitted");
       return;
