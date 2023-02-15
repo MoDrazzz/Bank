@@ -24,7 +24,7 @@ But... that was only a starting point. After finishing it I decided to keep deve
     - All user's cards displayed
     - Card requesting (verified by an admin)
 - Admin dashboard
-  - Operations history [TBA]
+  - Operations history
     - All users operations listed
     - Advanced filtering
     - Opening modal on operation click
@@ -38,9 +38,9 @@ But... that was only a starting point. After finishing it I decided to keep deve
 I have decided to use [json-server][json-server] to simplify database as much as possible. In future development, I plan to migrate it to an external service.
 Everything you need is in `db.json` file. It keeps all the users, transfers, and cards data. Don't miss admin dashboard! Credentials are also kept in the same file, but to login as an administrator you have to check `admin` route (http://localhost:5173/admin).
 
-### Assumptions
+### Disclaimer
 
-**Card Requesting**
+**Card Requesting**<br/>
 User calls to the bank and asks for request verification. Admin can confirm his request.
 
 ### Local version - Database initialization

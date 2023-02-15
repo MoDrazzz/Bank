@@ -5,7 +5,7 @@ interface Props {
 }
 
 const List: FC<Props> = ({ children }) => (
-  <ul className="grid gap-2 overflow-y-scroll">{children}</ul>
+  <ul className="grid w-[80%] gap-2 overflow-y-auto">{children}</ul>
 );
 
 export default List;

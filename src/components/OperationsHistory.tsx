@@ -44,7 +44,7 @@ const OperationsHistory: FC = () => {
       </div>
       <List>
         {!filteredOperations.length ? (
-          <Paragraph>No filteredOperations found.</Paragraph>
+          <Paragraph>No operations found.</Paragraph>
         ) : (
           filteredOperations
             .sort((a, b) => b.date - a.date)

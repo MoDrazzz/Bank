@@ -5,7 +5,7 @@
       "login": 12345,
       "password": "123",
       "fullName": "John Doe",
-      "balance": 3100,
+      "balance": 3000,
       "accountNumber": "12 3456 7890 1234 5678 9012 3456"
     },
     {
@@ -13,16 +13,8 @@
       "login": 54321,
       "password": "123",
       "fullName": "Bob Odenkirk",
-      "balance": 6900,
+      "balance": 7000,
       "accountNumber": "12 3456 7809 8765 4321 0987 6543"
-    },
-    {
-      "id": 47869,
-      "login": 47869,
-      "password": "L!Pp87Y8aK",
-      "fullName": "Grzegorz Brzeczyszczykiewicz",
-      "balance": 0,
-      "accountNumber": "12 3456 6160 9407 9569 7408 3785"
     }
   ],
   "cards": [
@@ -36,58 +28,28 @@
     {
       "id": "1234 5678 3452 8910",
       "validThru": 1733007600000,
-      "ownerID": 12345,
+      "ownerID": 54321,
       "CVC": 162,
       "requestPending": false
     },
     {
-      "id": "1234 5678 9824 1236",
-      "validThru": 1733007600000,
-      "ownerID": 54321,
-      "CVC": 824,
+      "id": "1234 5678 5177 6578",
+      "validThru": 1738364400000,
+      "ownerID": 12345,
+      "CVC": 908,
       "requestPending": true
     }
   ],
   "operations": [
     {
-      "id": 1673267781558,
+      "id": 1676467471329,
       "amount": 3000,
-      "date": 1673267781558,
+      "date": 1676467471329,
       "title": "Paycheck",
       "from": 54321,
       "to": 12345,
       "sendersBalanceAfterOperation": 7000,
       "receiversBalanceAfterOperation": 3000
-    },
-    {
-      "id": 1676198780021,
-      "amount": 100,
-      "date": 1676198780021,
-      "title": "Tip",
-      "from": 12345,
-      "to": 54321,
-      "sendersBalanceAfterOperation": 2900,
-      "receiversBalanceAfterOperation": 7100
-    },
-    {
-      "id": 1676198823234,
-      "amount": 100,
-      "date": 1676198823234,
-      "title": "12345",
-      "from": 54321,
-      "to": 12345,
-      "sendersBalanceAfterOperation": 7000,
-      "receiversBalanceAfterOperation": 3000
-    },
-    {
-      "id": 1676198862002,
-      "amount": 100,
-      "date": 1676198862002,
-      "title": "Tytl",
-      "from": 54321,
-      "to": 12345,
-      "sendersBalanceAfterOperation": 6900,
-      "receiversBalanceAfterOperation": 3100
     }
   ],
   "admins": [

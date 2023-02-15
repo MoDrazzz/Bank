@@ -5,8 +5,10 @@ interface Props {
   htmlFor: string;
 }
 
-const Label: FC<Props> = ({ children }) => (
-  <label className="text-lg">{children}</label>
+const Label: FC<Props> = ({ children, htmlFor }) => (
+  <label htmlFor={htmlFor} className="text-lg">
+    {children}
+  </label>
 );
 
 export default Label;

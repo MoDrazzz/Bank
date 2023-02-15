@@ -5,6 +5,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import OperationsHistory from "components/OperationsHistory";
 import Header from "components/Header";
 import SideBar from "components/SideBar";
+import AdminOperationsHistory from "components/AdminOperationsHistory";
 
 const Root: FC = () => {
   const { user } = useAuthContext();
@@ -33,7 +34,7 @@ const Root: FC = () => {
         <main className="overflow-scroll border-x-4 border-white px-24 py-12">
           <Outlet context={{ isUserAdmin }} />
         </main>
-        {isUserAdmin ? null : <OperationsHistory />}
+        {isUserAdmin ? <AdminOperationsHistory /> : <OperationsHistory />}
       </div>
     </>
   );

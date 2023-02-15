@@ -58,11 +58,17 @@ const useBank = () => {
       const cardRequestsResponse = await axios
         .get(`http://localhost:3000/cards?requestPending=true`)
         .catch((err) => console.log(err));
+      const operations = await axios
+        .get(`http://localhost:3000/operations`)
+        .catch((err) => console.log(err));
+
+      if (!cardRequestsResponse?.data || !operations?.data) {
+        return setError("Something went wrong.");
+      }
 
       flushSync(() => {
-        if (cardRequestsResponse?.data) {
-          setCards(cardRequestsResponse.data);
-        }
+        setCards(cardRequestsResponse.data);
+        setOperations(operations.data);
         dispatchUser({ type: "LOGIN", payload: user });
       });
     } else {
