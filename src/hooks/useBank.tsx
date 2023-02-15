@@ -291,7 +291,21 @@ const useBank = () => {
   };
 
   const addUser = async (fullName: string): Promise<AddUserReturnValue> => {
-    const generatedLogin = Math.floor(Math.random() * 99999 - 10000) + 1;
+    const usersRequest = await axios
+      .get(`http://localhost:3000/users`)
+      .catch((err) => console.log(err));
+
+    if (!usersRequest?.data) {
+      return { status: 400, user: null };
+    }
+
+    const users: User[] = usersRequest.data;
+
+    let generatedLogin: number;
+
+    do {
+      generatedLogin = Math.floor(Math.random() * 99999 - 10000) + 10000;
+    } while (users.some((user) => user.id == generatedLogin));
 
     const newUserData: User = {
       id: generatedLogin,
@@ -309,8 +323,6 @@ const useBank = () => {
     const addNewUserResponse = await axios
       .post(`http://localhost:3000/users`, newUserData)
       .catch((err) => console.log(err));
-
-    console.log(addNewUserResponse);
 
     if (addNewUserResponse?.status != 201) {
       setError("Something went wrong.");
