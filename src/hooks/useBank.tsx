@@ -161,27 +161,6 @@ const useBank = () => {
 
     const now = Date.now();
 
-    // // create operation-like object for sender.
-    // const senderOperation: Operation = {
-    //   id: now,
-    //   type: "outgoing",
-    //   amount,
-    //   date: now,
-    //   title,
-    //   receiver: receiver.id,
-    //   balanceAfterOperation: newSenderBalance,
-    // };
-
-    // // create operation-like object for receiver.
-    // const receiverOperation: Operation = {
-    //   id: now,
-    //   type: "incoming",
-    //   amount,
-    //   date: now,
-    //   title,
-    //   sender: user.id,
-    //   balanceAfterOperation: newReceiverBalance,
-    // };
     const operation: Operation = {
       id: now,
       amount,
@@ -192,20 +171,6 @@ const useBank = () => {
       sendersBalanceAfterOperation: newSenderBalance,
       receiversBalanceAfterOperation: newReceiverBalance,
     };
-
-    // change sender's balance
-    // add operation to sender's operation hisotry.
-    // await axios.patch(`http://localhost:3000/users/${user.id}`, {
-    //   balance: newSenderBalance,
-    //   operations: [senderOperation, ...user.operations],
-    // });
-
-    // // change receiver's balance
-    // // add operation to receive's operation history.
-    // await axios.patch(`http://localhost:3000/users/${receiver.id}`, {
-    //   balance: newReceiverBalance,
-    //   operations: [receiverOperation, ...receiver.operations],
-    // });
 
     // add operation to database
     await axios.post(`http://localhost:3000/operations`, operation);
@@ -272,10 +237,6 @@ const useBank = () => {
         login({ login: user.login, password: user.password }, false, true);
       }
     }
-    // const test = await axios.patch(`http://localhost:3000/users/${receiver.id}`, {
-    //   balance: newReceiverBalance,
-    //   operations: [receiverOperation, ...receiver.operations],
-    // });
   };
 
   const generateXDigitNumber = (x: number) => {
@@ -361,6 +322,60 @@ const useBank = () => {
     return { status: 200, user: newUserData };
   };
 
+  const cancelTransfer = async (transfer: Operation) => {
+    // Set sender's balance
+    const senderRequest = await axios
+      .get(`http://localhost:3000/users/${transfer.from}`)
+      .catch((err) => console.log(err));
+
+    if (!senderRequest?.data) {
+      console.log(senderRequest);
+      return setError("Sender has not been found.");
+    }
+
+    const sender: User = senderRequest.data;
+
+    await axios
+      .patch(`http://localhost:3000/users/${sender.id}`, {
+        balance: sender.balance + transfer.amount,
+      })
+      .catch((err) => console.log(err));
+
+    // Set receiver's balance
+    const receiverRequest = await axios
+      .get(`http://localhost:3000/users/${transfer.to}`)
+      .catch((err) => console.log(err));
+
+    if (!receiverRequest?.data) {
+      return setError("Receiver has not been found.");
+    }
+
+    const receiver: User = receiverRequest.data;
+
+    await axios
+      .patch(`http://localhost:3000/users/${receiver.id}`, {
+        balance: receiver.balance - transfer.amount,
+      })
+      .catch((err) => console.log(err));
+
+    // Delete operation from history
+    await axios
+      .delete(`http://localhost:3000/operations/${transfer.id}`)
+      .catch((err) => console.log(err));
+
+    // Get operations
+    const operationsRequest = await axios
+      .get(`http://localhost:3000/operations`)
+      .catch((err) => console.log(err));
+
+    if (!operationsRequest?.data) {
+      return setError("Error during operations refresh");
+    }
+
+    // Update operations state in AuthContext
+    setOperations(operationsRequest.data);
+  };
+
   return {
     error,
     setError,
@@ -371,6 +386,7 @@ const useBank = () => {
     handleCardRequest,
     requestNewCard,
     addUser,
+    cancelTransfer,
   };
 };
 

@@ -43,6 +43,9 @@ Everything you need is in `db.json` file. It keeps all the users, transfers, and
 **Card Requesting**<br/>
 User calls to the bank and asks for request verification. Admin can confirm his request.
 
+**Operation cancel Requesting**<br/>
+User calls to the bank and asks for canceling the operation. Admin can confirm his request.
+
 ### Local version - Database initialization
 
 ```sh

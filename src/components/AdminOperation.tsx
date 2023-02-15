@@ -7,6 +7,8 @@ import Modal from "./Modal";
 import Paragraph from "./Paragraph";
 import { useAuthContext } from "contexts/AuthContext";
 import { Navigate } from "react-router-dom";
+import Button from "./Button";
+import useBank from "hooks/useBank";
 
 interface Props {
   data: Operation;
@@ -18,6 +20,8 @@ const AdminOperation: FC<Props> = ({ data }) => {
   const [sender, setSender] = useState<User>();
   const [receiver, setReceiver] = useState<User>();
   const operationDate = new Date(data.date);
+  const [cancelButtonStage, setCancelButtonStage] = useState(1);
+  const { cancelTransfer, error } = useBank();
 
   useEffect(() => {
     const fetchSender = async () => {
@@ -45,6 +49,14 @@ const AdminOperation: FC<Props> = ({ data }) => {
     fetchSender();
     fetchReceiver();
   }, []);
+
+  useEffect(() => {
+    setCancelButtonStage(1);
+  }, [modalVisible]);
+
+  const handleCancelTransfer = () => {
+    cancelButtonStage == 1 ? setCancelButtonStage(2) : cancelTransfer(data);
+  };
 
   if (!user) {
     return <Navigate to="/" />;
@@ -87,6 +99,10 @@ const AdminOperation: FC<Props> = ({ data }) => {
             Sender's balance after operation:{" "}
             {data.receiversBalanceAfterOperation}
           </Paragraph>
+          <Button isRed onClick={handleCancelTransfer}>
+            {cancelButtonStage == 1 ? "Cancel Transfer" : "Confirm"}
+          </Button>
+          {error}
         </div>
       </Modal>
     </>
