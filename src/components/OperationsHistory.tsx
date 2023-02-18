@@ -30,18 +30,16 @@ const OperationsHistory: FC = () => {
   }, [operations]);
 
   return (
-    <aside className="flex flex-col items-center gap-5 overflow-y-hidden pt-12">
+    <aside className="flex flex-col items-center gap-5 overflow-y-hidden px-[5%] pt-12">
       <Heading>Operations History</Heading>
       <Accent />
-      <div className="relative w-[90%]">
-        <FormField
-          type="text"
-          name="searchOperations"
-          value={searchValue}
-          onChange={handleSearch}
-          label="Filter by title"
-        />
-      </div>
+      <FormField
+        type="text"
+        name="searchOperations"
+        value={searchValue}
+        onChange={handleSearch}
+        label="Filter by title"
+      />
       <List>
         {!filteredOperations.length ? (
           <Paragraph>No operations found.</Paragraph>

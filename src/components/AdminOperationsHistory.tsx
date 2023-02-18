@@ -41,10 +41,10 @@ const AdminOperationsHistory: FC = () => {
   }, [operations, filterOption]);
 
   return (
-    <aside className="flex flex-col items-center gap-5 overflow-y-hidden pt-12">
+    <aside className="flex flex-col items-center gap-5 overflow-y-hidden px-[5%] pt-12">
       <Heading>Operations History</Heading>
       <Accent />
-      <div className="relative grid w-[90%] gap-2">
+      <div className="grid w-full gap-2">
         <div className="flex w-full justify-between">
           <Label htmlFor="searchOperations">Filter by:</Label>
           <div className="flex gap-5">
