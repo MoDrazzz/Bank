@@ -4,8 +4,8 @@ declare global {
     amount: number;
     date: number;
     title: string;
-    from: number;
-    to: number;
+    sender: number;
+    receiver: number;
     sendersBalanceAfterOperation: number;
     receiversBalanceAfterOperation: number;
   }
@@ -15,8 +15,14 @@ declare global {
     login: number;
     password: string;
     fullName: string;
+    type: string;
+  }
+
+  interface Account {
+    id: number;
     balance: number;
-    accountNumber: string;
+    number: string;
+    ownerID: number;
   }
 
   interface Card {

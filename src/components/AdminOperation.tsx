@@ -12,38 +12,33 @@ import useBank from "hooks/useBank";
 
 interface Props {
   data: Operation;
+  refreshOperations: () => void;
 }
 
-const AdminOperation: FC<Props> = ({ data }) => {
+const AdminOperation: FC<Props> = ({ data, refreshOperations }) => {
   const { user } = useAuthContext();
   const [modalVisible, setModalVisible] = useState(false);
   const [sender, setSender] = useState<User>();
   const [receiver, setReceiver] = useState<User>();
   const operationDate = new Date(data.date);
   const [cancelButtonStage, setCancelButtonStage] = useState(1);
-  const { cancelTransfer, error } = useBank();
+  const { cancelTransfer, error, getSpecifiedData } = useBank();
 
   useEffect(() => {
     const fetchSender = async () => {
-      await axios
-        .get(`http://localhost:3000/users/${data.from}`)
-        .then((res) => {
-          setSender(res.data);
-        })
-        .catch((err: Error) => {
-          console.log(err);
-        });
+      const sender = await getSpecifiedData("userByAccountID", data.sender);
+
+      if (!sender) return;
+
+      setSender(sender);
     };
 
     const fetchReceiver = async () => {
-      await axios
-        .get(`http://localhost:3000/users/${data.to}`)
-        .then((res) => {
-          setReceiver(res.data);
-        })
-        .catch((err: Error) => {
-          console.log(err);
-        });
+      const receiver = await getSpecifiedData("userByAccountID", data.receiver);
+
+      if (!receiver) return;
+
+      setReceiver(receiver);
     };
 
     fetchSender();
@@ -54,8 +49,13 @@ const AdminOperation: FC<Props> = ({ data }) => {
     setCancelButtonStage(1);
   }, [modalVisible]);
 
-  const handleCancelTransfer = () => {
-    cancelButtonStage === 1 ? setCancelButtonStage(2) : cancelTransfer(data);
+  const handleCancelTransfer = async () => {
+    if (cancelButtonStage === 1) {
+      setCancelButtonStage(2);
+    } else {
+      await cancelTransfer(data);
+      refreshOperations();
+    }
   };
 
   if (!user) {
@@ -70,8 +70,8 @@ const AdminOperation: FC<Props> = ({ data }) => {
       >
         <ListItem>{data.id}</ListItem>
         <ListItem>{data.amount}$</ListItem>
-        <ListItem>{data.from}</ListItem>
-        <ListItem>{data.to}</ListItem>
+        <ListItem>{data.sender}</ListItem>
+        <ListItem>{data.receiver}</ListItem>
       </li>
       <Modal isVisible={modalVisible} setIsVisible={setModalVisible}>
         <Heading>Operation nr. {data.id}</Heading>

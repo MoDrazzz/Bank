@@ -15,7 +15,7 @@ interface Props {
 
 const CardRequest: FC<Props> = ({ request: { owner, card } }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { handleCardRequest } = useBank();
+  // const { handleCardRequest } = useBank();
 
   return (
     <>
@@ -46,15 +46,15 @@ const CardRequest: FC<Props> = ({ request: { owner, card } }) => {
         <div>
           <Paragraph>Full Name: {owner.fullName}</Paragraph>
           <Paragraph>ID: {owner.id}</Paragraph>
-          <Paragraph>Account number: {owner.accountNumber}</Paragraph>
+          {/* <Paragraph>Account number: {owner.accountNumber}</Paragraph> */}
         </div>
         <div className="flex gap-5">
-          <Button onClick={() => handleCardRequest(card, "accept")}>
+          {/* <Button onClick={() => handleCardRequest(card, "accept")}>
             Accept
           </Button>
           <Button isRed onClick={() => handleCardRequest(card, "deny")}>
             Deny
-          </Button>
+          </Button> */}
         </div>
       </Modal>
     </>

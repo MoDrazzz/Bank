@@ -5,16 +5,35 @@
       "login": 12345,
       "password": "123",
       "fullName": "John Doe",
-      "balance": 3000,
-      "accountNumber": "12 3456 7890 1234 5678 9012 3456"
+      "type": "user"
     },
     {
       "id": 54321,
       "login": 54321,
       "password": "123",
       "fullName": "Bob Odenkirk",
-      "balance": 7000,
-      "accountNumber": "12 3456 7809 8765 4321 0987 6543"
+      "type": "user"
+    },
+    {
+      "id": 12345678,
+      "login": 12345678,
+      "password": "123",
+      "fullName": "Super Admin",
+      "type": "admin"
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "balance": 2990,
+      "number": "12 3456 7890 1234 5678 9012 3456",
+      "ownerID": 12345
+    },
+    {
+      "id": 2,
+      "balance": 7010,
+      "number": "12 3456 7809 8765 4321 0987 6543",
+      "ownerID": 54321
     }
   ],
   "cards": [
@@ -46,10 +65,20 @@
       "amount": 3000,
       "date": 1676467471329,
       "title": "Paycheck",
-      "from": 54321,
-      "to": 12345,
+      "sender": 2,
+      "receiver": 1,
       "sendersBalanceAfterOperation": 7000,
       "receiversBalanceAfterOperation": 3000
+    },
+    {
+      "id": 1677671543955,
+      "amount": 10,
+      "date": 1677671543955,
+      "title": "Tip",
+      "sender": 1,
+      "receiver": 2,
+      "sendersBalanceAfterOperation": 2990,
+      "receiversBalanceAfterOperation": 7010
     }
   ],
   "admins": [

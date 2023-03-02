@@ -4,7 +4,7 @@ import Heading from "components/Heading";
 import Paragraph from "components/Paragraph";
 import { useAuthContext } from "contexts/AuthContext";
 import useBank from "hooks/useBank";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface FormValues {
@@ -22,9 +22,12 @@ const initialFormValues: FormValues = {
 const Transfer: FC = () => {
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
   const [stage, setStage] = useState(1);
-  const { error, transfer, setError } = useBank();
-  const { user } = useAuthContext();
+  const { error, transfer, setError, getSpecifiedData } = useBank();
   const navigate = useNavigate();
+  const { user } = useAuthContext();
+  const [balanceAfterOperation, setBalanceAfterOperation] = useState<
+    string | number
+  >();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -65,16 +68,31 @@ const Transfer: FC = () => {
     });
   };
 
-  const getBalanceAfterOperation = (): number | string => {
+  const getBalanceAfterOperation = async (): Promise<number | string> => {
+    if (!user) return "Error";
+    const userAccounts = await getSpecifiedData("userAccounts", user.id);
+
+    if (!userAccounts) return "Error";
+
     if (
-      !user?.balance ||
+      userAccounts[0]?.balance === 0 ||
       typeof formValues.amount !== "number" ||
       formValues.amount <= 0
     ) {
       return "Error";
     }
-    return (user.balance - formValues.amount).toFixed(2);
+    return (userAccounts[0].balance - formValues.amount).toFixed(2);
   };
+
+  useEffect(() => {
+    if (stage === 2) {
+      const setBalance = async () => {
+        setBalanceAfterOperation(await getBalanceAfterOperation());
+      };
+
+      setBalance();
+    }
+  }, [stage]);
 
   return (
     <div className="grid gap-5">
@@ -125,7 +143,7 @@ const Transfer: FC = () => {
             <Paragraph>Amount: {formValues.amount}$</Paragraph>
             <Paragraph>Title: {formValues.title}</Paragraph>
             <Paragraph>
-              Balance after operation: {getBalanceAfterOperation()}
+              Balance after operation: {balanceAfterOperation}
             </Paragraph>
           </div>
           <div className="flex gap-5">

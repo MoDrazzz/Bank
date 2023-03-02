@@ -2,7 +2,7 @@ import { Dispatch, FC } from "react";
 import Label from "./Label";
 
 interface Props {
-  value: "id" | "from" | "to";
+  value: "id" | "sender" | "receiver";
   checked: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

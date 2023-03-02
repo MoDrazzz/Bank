@@ -21,19 +21,15 @@ type ReducerAction = { type: AuthActions; payload: User | null };
 interface AuthContextValues {
   user: ReducerState;
   dispatchUser: React.Dispatch<ReducerAction>;
-  cards: Card[];
-  setCards: React.Dispatch<SetStateAction<Card[]>>;
-  operations: Operation[];
-  setOperations: React.Dispatch<SetStateAction<Operation[]>>;
+  activeAccount: Account | null;
+  setActiveAccount: React.Dispatch<Account>;
 }
 
 const AuthenticationContext = createContext<AuthContextValues>({
   user: null,
   dispatchUser: () => {},
-  cards: [],
-  setCards: () => {},
-  operations: [],
-  setOperations: () => {},
+  activeAccount: null,
+  setActiveAccount: () => {},
 });
 
 const authReducer = (state: ReducerState, action: ReducerAction) => {
@@ -49,18 +45,15 @@ const authReducer = (state: ReducerState, action: ReducerAction) => {
 
 const AuthContext: FC<Props> = ({ children }) => {
   const [user, dispatchUser] = useReducer(authReducer, null);
-  const [cards, setCards] = useState<Card[]>([]);
-  const [operations, setOperations] = useState<Operation[]>([]);
+  const [activeAccount, setActiveAccount] = useState<Account | null>(null);
 
   return (
     <AuthenticationContext.Provider
       value={{
         user,
         dispatchUser,
-        cards,
-        setCards,
-        operations,
-        setOperations
+        activeAccount,
+        setActiveAccount,
       }}
     >
       {children}

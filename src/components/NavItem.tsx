@@ -25,29 +25,4 @@ const NavItem: FC<Props> = ({ children, to }) => {
   );
 };
 
-// const NavItem: FC<Props> = ({ children, to }) => (
-//   <NavLink
-//     to={to}
-//     className={({ isActive }) =>
-//       isActive
-//         ? "cursor-pointer font-semibold text-white"
-//         : "cursor-pointer font-semibold text-gray"
-//     }
-//   >
-//     {children}
-//   </NavLink>
-// );
-
-// const NavItem: FC<Props> = ({ children, isActive, to }) => (
-//   <NavLink
-//     to={to}
-//     className={classNames("cursor-pointer font-semibold", {
-//       "text-gray": !isActive,
-//       "text-white": isActive,
-//     })}
-//   >
-//     {children}
-//   </NavLink>
-// );
-
 export default NavItem;

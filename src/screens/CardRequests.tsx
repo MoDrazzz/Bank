@@ -8,23 +8,46 @@ import CardRequest from "components/CardRequest";
 import { useAuthContext } from "contexts/AuthContext";
 
 const CardRequests: FC = () => {
-  const { getPendingCardRequests, error } = useBank();
+  const { error, getSpecifiedData } = useBank();
   const [pendingCardRequests, setPendingCardRequests] = useState<
     PendingCardRequest[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { cards } = useAuthContext();
 
   useEffect(() => {
     setIsLoading(true);
-    const getRequests = async () => {
-      getPendingCardRequests().then((data) => {
-        setPendingCardRequests(data);
-        setIsLoading(false);
-      });
+
+    const getPendingCardRequests = async () => {
+      const cards = await getSpecifiedData("cardsWithPendingRequest");
+
+      if (!cards) return [];
+
+      await Promise.all(
+        cards.map(async (card) => {
+          const owner = await getSpecifiedData("user", card.ownerID);
+
+          if (!owner) return;
+
+          const req = {
+            card,
+            owner: owner,
+          };
+
+          // setPendingCardRequests((prev) => {
+          //   const copy = prev;
+          //   copy.push(req);
+
+          //   return copy;
+          // });
+        })
+      );
+
+      // setPendingCardRequests(requests);
+      setIsLoading(false);
     };
-    getRequests();
-  }, [cards]);
+    // };
+    getPendingCardRequests();
+  }, []);
 
   return (
     <div className="grid gap-2">

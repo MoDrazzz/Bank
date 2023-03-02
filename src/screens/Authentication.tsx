@@ -32,15 +32,11 @@ const Authentication: FC<Props> = ({ isAdmin = false }) => {
       return;
     }
 
-    login(
-      { login: parseInt(formValues.login), password: formValues.password },
-      true,
-      isAdmin
-    );
+    login({ login: parseInt(formValues.login), password: formValues.password });
   };
 
   return (
-    <div className={"grid h-[100vh] place-items-center bg-dark"}>
+    <div className={"grid h-[100vh] place-items-center bg-dark text-white"}>
       <form className="relative flex w-[25vw] flex-col items-center gap-5 rounded border-2 p-12">
         <FormField
           name="login"
@@ -67,9 +63,6 @@ const Authentication: FC<Props> = ({ isAdmin = false }) => {
             {error}
           </p>
         )}
-        <Link to={isAdmin ? "/login" : "/admin"}>
-          {isAdmin ? "Login as user ->" : "Login as admin ->"}
-        </Link>
       </form>
     </div>
   );

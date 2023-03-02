@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { Dispatch, FC, ReactNode } from "react";
 
 interface Props {
-  children: ReactNode[];
+  children: ReactNode;
   isVisible: boolean;
   setIsVisible: Dispatch<React.SetStateAction<boolean>>;
 }
