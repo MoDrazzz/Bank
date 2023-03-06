@@ -263,53 +263,24 @@ const useBank = () => {
     }
   };
 
-  // const getPendingCardRequests = async (): Promise<PendingCardRequest[]> => {
-  //   const requests = await Promise.all(
-  //     cards.map(async (card) => {
-  //       const ownerRequest = await axios
-  //         .get(`${url}/users?id=${card.ownerID}`)
-  //         .catch((err) => console.log(err));
-
-  //       return {
-  //         card,
-  //         owner: ownerRequest?.data[0],
-  //       };
-  //     })
-  //   );
-
-  //   return requests;
-  // };
-
-  // const handleCardRequest = async (card: Card, type: "accept" | "deny") => {
-  //   if (!user) return navigate("/");
-
-  //   if (type === "accept") {
-  //     const acceptCardResponse = await axios
-  //       .patch(`${url}/cards/${card.id}`, {
-  //         requestPending: false,
-  //       })
-  //       .catch((err) => console.error(err));
-
-  //     if (acceptCardResponse?.status !== 200) {
-  //       setError("Something went wrong.");
-  //     } else {
-  //       setError("");
-  //       login({ login: user.login, password: user.password }, false, true);
-  //     }
-  //   }
-  //   if (type === "deny") {
-  //     const acceptCardResponse = await axios
-  //       .delete(`${url}/cards/${card.id}`)
-  //       .catch((err) => console.error(err));
-
-  //     if (acceptCardResponse?.status !== 200) {
-  //       setError("Something went wrong.");
-  //     } else {
-  //       setError("");
-  //       login({ login: user.login, password: user.password }, false, true);
-  //     }
-  //   }
-  // };
+  const handleCardRequest = async (card: Card, type: "accept" | "deny") => {
+    if (type === "accept") {
+      try {
+        await axios.patch(`${url}/cards/${card.id}`, {
+          requestPending: false,
+        });
+      } catch (err) {
+        setError("Can not connect to the database.");
+      }
+    }
+    if (type === "deny") {
+      try {
+        await axios.delete(`${url}/cards/${card.id}`);
+      } catch (err) {
+        setError("Can not connect to the database.");
+      }
+    }
+  };
 
   const generateXDigitNumber = (x: number) => {
     const num = Math.floor(
@@ -448,8 +419,7 @@ const useBank = () => {
     logout,
     getSpecifiedData,
     transfer,
-    // getPendingCardRequests,
-    // handleCardRequest,
+    handleCardRequest,
     requestNewCard,
     addUser,
     cancelTransfer,

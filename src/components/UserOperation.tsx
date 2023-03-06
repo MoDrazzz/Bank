@@ -65,7 +65,7 @@ const UserOperation: FC<Props> = ({ data }) => {
     <>
       <li
         onClick={() => setModalVisible(true)}
-        className="grid cursor-pointer grid-cols-[100px_min-content_75px_250px] gap-3"
+        className="grid w-full cursor-pointer grid-cols-[max-content_min-content_75px_250px] gap-3"
       >
         <ListItem>{new Date(data.date).toLocaleDateString("en-gb")}</ListItem>
         <span
